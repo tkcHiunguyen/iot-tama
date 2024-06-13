@@ -1,0 +1,80 @@
+.inputpw {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(65, 65, 65, 0.836);
+  justify-items: center;
+}
+
+.showinputpw {
+  display: block;
+}
+
+.popup-pw {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.name-wifi {
+  margin-top: 10px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.nhapmatkhau {
+  text-align: start;
+  padding: 5px;
+  padding-left: 10px;
+  margin-top: 10px;
+  padding-bottom: 2px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+}
+.popup-pw input {
+  margin: 10px;
+  padding: 5px;
+  border: 2px solid;
+  border-radius: 5px;
+  margin-bottom: 1px;
+}
+.toggle-password {
+  display: flex;
+  margin-right: 15px;
+  justify-content: end;
+  font-size: 20px;
+  margin-top: -5px;
+  cursor: pointer;
+}
+.fncBtn {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.fncBtn input {
+  margin-top: 5px;
+  padding: 5px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.fncBtn .connect {
+  background-color: rgb(127, 219, 168);
+}
+.fncBtn .cancel {
+  background-color: rgb(214, 114, 56);
+}
