@@ -1,0 +1,727 @@
+[INFO] [launch]: All log files can be found below /home/jetson2/.ros/log/2024-01-31-10-44-53-344480-ubuntu-2394
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [cubepilot-1]: process started with pid [2505]
+[INFO] [sift-2]: process started with pid [2507]
+[INFO] [ins-3]: process started with pid [2509]
+[cubepilot-1] [INFO] [1706672697.181162928] [cubepilot]: [CUBE] Successful load parameter
+[cubepilot-1] [INFO] [1706672697.244364560] [cubepilot]: [CUBE] Success connect to serital Port: /dev/ttyUSB0
+[cubepilot-1] [INFO] [1706672698.147300816] [cubepilot]: [CUBE NODE] Cubepilot SUCESS CONNECT PORT: AUTO!!
+[cubepilot-1] [INFO] [1706672698.149760496] [cubepilot]: [CUBE NODE] Cubepilot START!!
+[cubepilot-1] [INFO] [1706672698.160888432] [cubepilot]: Receive Always Data From cube
+[ins-3] [INFO] [1706672704.703900400] [ins]: Successful load parameter !!!
+[ins-3] [INFO] [1706672704.706964144] [ins]: [INS] AUTO DECTECT PORT
+[ins-3] [INFO] [1706672704.761828112] [ins]: [INS] Read IMU Device: /dev/ttyACM2...
+[ins-3] [INFO] [1706672704.779007920] [ins]: [INS] SUCCESS AUTO DECTECT PORT: /dev/ttyACM2
+[ins-3] [INFO] [1706672704.781639376] [ins]: [INS] Ins have ready
+[cubepilot-1] [INFO] [1706672704.943170128] [cubepilot]: [SIFT][GPS_2] lat: 19.227346420288086, lon: 96.73319244384766 ___[GPS_1] lat: 20.971323013305664, lon: 105.5271224975586, alt: 0.385 ___[Match] 0.0 ___[Frames] count: 0.0 ___[global_search] value: -1.0
+[sift-2] [INFO] [1706672706.847258960] [sift]: Successful load parameter
+[sift-2] [INFO] [1706672706.853169584] [sift]: SAVE FILE TO: test_ffmpeg_2024_01_31_10:45:06.avi
+[sift-2] ERROR 1: PROJ: proj_create_from_database: Cannot find proj.db
+[sift-2] ERROR 1: PROJ: proj_create_from_database: Cannot find proj.db
+[sift-2] [INFO] [1706672706.911165648] [sift]: [SIFT] self.gt: (106.563058339, 3.667011321256134e-07, 0.0, 10.98388527218913, 0.0, -3.667011321256134e-07)
+[sift-2] [INFO] [1706672707.089778096] [sift]: do toi day roi
+[sift-2] [INFO] [1706672725.664066352] [sift]: do toi day rđàasdfoi
+[sift-2] [INFO] [1706672725.784194448] [sift]: do toi day roihdhdhd
+[sift-2] [INFO] [1706672725.786865424] [sift]: [SIFT] DONE LOAD MAP OFFLINE
+[sift-2] [INFO] [1706672731.403858096] [sift]: [SIFT] Opening Camera Stream...nvarguscamerasrc sensor-id=0 ! video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, framerate=(fraction)30/1 ! nvvidconv flip-method=0 ! video/x-raw, width=(int)960, height=(int)540, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink
+[sift-2] [INFO] [1706672731.406629744] [sift]: Current working directory: /home/jetson2/sol2023_nongps/NON_GPS True
+[sift-2] NvMMLiteOpen : Block : BlockType = 261 
+[sift-2] NVMEDIA: Reading vendor.tegra.display-size : status: 6 
+[sift-2] NvMMLiteBlockCreate : Block : BlockType = 261 
+[sift-2] Opening in BLOCKING MODE 
+[sift-2] [ WARN:6] global /tmp/build_opencv/opencv/modules/videoio/src/cap_gstreamer.cpp (898) open OpenCV | GStreamer warning: unable to query duration of stream
+[sift-2] [ WARN:6] global /tmp/build_opencv/opencv/modules/videoio/src/cap_gstreamer.cpp (935) open OpenCV | GStreamer warning: Cannot query video position: status=1, value=0, duration=-1
+[sift-2] [INFO] [1706672736.859692752] [sift]: [SIFT] Create folder Output : ./output/test_ffmpeg_2024_01_31_10:45:06
+[sift-2] [INFO] [1706672737.730946800] [sift]: [SIFT] frame: 0
+[sift-2] [INFO] [1706672739.120987920] [sift]: [SIFT] len des1: 9251
+[sift-2] [INFO] [1706672739.127350704] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672751.511209648] [sift]: --- 13.775551795959473 seconds ---
+[sift-2] [INFO] [1706672751.513851632] [sift]: Golbal search: False
+[sift-2] [INFO] [1706672752.214699280] [sift]: [SIFT] frame: 3
+[sift-2] [INFO] [1706672753.087140528] [sift]: [SIFT] len des1: 11457
+[sift-2] [INFO] [1706672753.089591120] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672760.787887984] [sift]: --- 8.569923877716064 seconds ---
+[sift-2] [INFO] [1706672760.790474416] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706672760.889540272] [cubepilot]: [SIFT][GPS_2] lat: 10.985136032104492, lon: 106.56548309326172 ___[GPS_1] lat: 10.97888469696045, lon: 106.56645202636719, alt: 0.643 ___[Match] 1.0 ___[Frames] count: 3.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706672761.177351600] [sift]: [SIFT] frame: 6
+[sift-2] [INFO] [1706672762.127514800] [sift]: [SIFT] len des1: 9737
+[sift-2] [INFO] [1706672762.131905136] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672777.777191920] [sift]: --- 16.59703755378723 seconds ---
+[sift-2] [INFO] [1706672777.779744816] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672777.888693936] [cubepilot]: [SIFT][GPS_2] lat: 10.980857849121094, lon: 106.5650863647461 ___[GPS_1] lat: 10.978886604309082, lon: 106.56645202636719, alt: 0.608 ___[Match] 1.0 ___[Frames] count: 6.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672778.114870224] [sift]: [SIFT] frame: 9
+[sift-2] [INFO] [1706672778.896371280] [sift]: [SIFT] len des1: 12792
+[sift-2] [INFO] [1706672778.898871632] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672784.073519312] [sift]: --- 5.955750465393066 seconds ---
+[sift-2] [INFO] [1706672784.076123472] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706672784.089729936] [cubepilot]: [SIFT][GPS_2] lat: 10.982349395751953, lon: 106.56373596191406 ___[GPS_1] lat: 10.978888511657715, lon: 106.56645202636719, alt: 0.616 ___[Match] 1.0 ___[Frames] count: 9.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706672784.402156304] [sift]: [SIFT] frame: 12
+[sift-2] [INFO] [1706672785.067934608] [sift]: [SIFT] len des1: 12769
+[sift-2] [INFO] [1706672785.075414224] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672800.469465104] [sift]: --- 16.064287185668945 seconds ---
+[sift-2] [INFO] [1706672800.472302352] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672800.492065584] [cubepilot]: [SIFT][GPS_2] lat: 10.983760833740234, lon: 106.56449890136719 ___[GPS_1] lat: 10.978889465332031, lon: 106.56645202636719, alt: 0.793 ___[Match] 1.0 ___[Frames] count: 12.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672800.793265136] [sift]: [SIFT] frame: 15
+[sift-2] [INFO] [1706672801.529806672] [sift]: [SIFT] len des1: 12859
+[sift-2] [INFO] [1706672801.532396720] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672804.063413360] [sift]: --- 3.267087936401367 seconds ---
+[sift-2] [INFO] [1706672804.065890416] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706672804.094162672] [cubepilot]: [SIFT][GPS_2] lat: 10.981687545776367, lon: 106.56539154052734 ___[GPS_1] lat: 10.978890419006348, lon: 106.56645202636719, alt: 0.755 ___[Match] 1.0 ___[Frames] count: 15.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706672804.392936976] [sift]: [SIFT] frame: 18
+[sift-2] [INFO] [1706672805.077769488] [sift]: [SIFT] len des1: 12007
+[sift-2] [INFO] [1706672805.082561488] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672819.775900272] [sift]: --- 15.37924313545227 seconds ---
+[sift-2] [INFO] [1706672819.778404464] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672819.892118832] [cubepilot]: [SIFT][GPS_2] lat: 10.982807159423828, lon: 106.56786346435547 ___[GPS_1] lat: 10.978891372680664, lon: 106.56645202636719, alt: 0.838 ___[Match] 1.0 ___[Frames] count: 18.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672820.102008176] [sift]: [SIFT] frame: 21
+[sift-2] [INFO] [1706672820.821293648] [sift]: [SIFT] len des1: 12771
+[sift-2] [INFO] [1706672820.823807248] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672836.367342448] [sift]: --- 16.262163639068604 seconds ---
+[sift-2] [INFO] [1706672836.369911376] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706672836.390291248] [cubepilot]: [SIFT][GPS_2] lat: 10.978713989257812, lon: 106.57096862792969 ___[GPS_1] lat: 10.97889232635498, lon: 106.56645202636719, alt: 0.925 ___[Match] 1.0 ___[Frames] count: 21.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706672836.704440304] [sift]: [SIFT] frame: 24
+[sift-2] [INFO] [1706672837.378240816] [sift]: [SIFT] len des1: 13057
+[sift-2] [INFO] [1706672837.381033872] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672853.253236080] [sift]: --- 16.5457501411438 seconds ---
+[sift-2] [INFO] [1706672853.256047824] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672853.295741296] [cubepilot]: [SIFT][GPS_2] lat: 10.969487190246582, lon: 106.5771255493164 ___[GPS_1] lat: 10.978893280029297, lon: 106.56645202636719, alt: 1.077 ___[Match] 1.0 ___[Frames] count: 24.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672853.583189584] [sift]: [SIFT] frame: 27
+[sift-2] [INFO] [1706672854.287889168] [sift]: [SIFT] len des1: 12027
+[sift-2] [INFO] [1706672854.293453168] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672868.768247216] [sift]: --- 15.182043313980103 seconds ---
+[sift-2] [INFO] [1706672868.771113648] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706672868.789633936] [cubepilot]: [SIFT][GPS_2] lat: 10.976916313171387, lon: 106.57196044921875 ___[GPS_1] lat: 10.978894233703613, lon: 106.56645202636719, alt: 1.081 ___[Match] 1.0 ___[Frames] count: 27.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706672869.094179664] [sift]: [SIFT] frame: 30
+[sift-2] [INFO] [1706672869.829866320] [sift]: [SIFT] len des1: 12981
+[sift-2] [INFO] [1706672869.832473840] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672885.329866256] [sift]: --- 16.232173442840576 seconds ---
+[sift-2] [INFO] [1706672885.332468624] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672885.391849904] [cubepilot]: [SIFT][GPS_2] lat: 10.979965209960938, lon: 106.56634521484375 ___[GPS_1] lat: 10.97889518737793, lon: 106.56645202636719, alt: 3.71 ___[Match] 1.0 ___[Frames] count: 30.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672885.647064528] [sift]: [SIFT] frame: 33
+[sift-2] [INFO] [1706672886.357719376] [sift]: [SIFT] len des1: 12067
+[sift-2] [INFO] [1706672886.360955280] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672900.913685840] [sift]: --- 15.26371717453003 seconds ---
+[sift-2] [INFO] [1706672900.916259408] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706672900.993083312] [cubepilot]: [SIFT][GPS_2] lat: 10.977924346923828, lon: 106.56503295898438 ___[GPS_1] lat: 10.97889518737793, lon: 106.56645202636719, alt: 41.997 ___[Match] 1.0 ___[Frames] count: 33.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706672901.247734160] [sift]: [SIFT] frame: 36
+[sift-2] [INFO] [1706672901.946643888] [sift]: [SIFT] len des1: 12027
+[sift-2] [INFO] [1706672901.949172944] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672918.125535984] [sift]: --- 16.87480092048645 seconds ---
+[sift-2] [INFO] [1706672918.128308944] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672918.191638896] [cubepilot]: [SIFT][GPS_2] lat: 10.979515075683594, lon: 106.56661224365234 ___[GPS_1] lat: 10.97889518737793, lon: 106.56645202636719, alt: 84.929 ___[Match] 1.0 ___[Frames] count: 36.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672918.486421264] [sift]: [SIFT] frame: 39
+[sift-2] [INFO] [1706672919.126986480] [sift]: [SIFT] len des1: 10991
+[sift-2] [INFO] [1706672919.133674032] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672934.633747696] [sift]: --- 16.14451789855957 seconds ---
+[sift-2] [INFO] [1706672934.636402608] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706672934.693871344] [cubepilot]: [SIFT][GPS_2] lat: 10.979516983032227, lon: 106.56702423095703 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 126.185 ___[Match] 1.0 ___[Frames] count: 39.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706672934.976072304] [sift]: [SIFT] frame: 42
+[sift-2] [INFO] [1706672935.616472912] [sift]: [SIFT] len des1: 11903
+[sift-2] [INFO] [1706672935.619140688] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672952.397752720] [sift]: --- 17.416947603225708 seconds ---
+[sift-2] [INFO] [1706672952.400394832] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672952.491670992] [cubepilot]: [SIFT][GPS_2] lat: 10.978899955749512, lon: 106.56643676757812 ___[GPS_1] lat: 10.97889518737793, lon: 106.56645202636719, alt: 170.794 ___[Match] 1.0 ___[Frames] count: 42.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672952.739093936] [sift]: [SIFT] frame: 45
+[sift-2] [INFO] [1706672953.416771344] [sift]: [SIFT] len des1: 12032
+[sift-2] [INFO] [1706672953.423496560] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672958.173793712] [sift]: --- 5.431532859802246 seconds ---
+[sift-2] [INFO] [1706672958.176452208] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672958.188801360] [cubepilot]: [SIFT][GPS_2] lat: 10.978899955749512, lon: 106.5664291381836 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 184.94 ___[Match] 1.0 ___[Frames] count: 45.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672958.523676656] [sift]: [SIFT] frame: 48
+[sift-2] [INFO] [1706672959.190036176] [sift]: [SIFT] len des1: 12074
+[sift-2] [INFO] [1706672959.194693776] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672966.520538576] [sift]: --- 7.993668794631958 seconds ---
+[sift-2] [INFO] [1706672966.523117040] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672966.591001968] [cubepilot]: [SIFT][GPS_2] lat: 10.978898048400879, lon: 106.5664291381836 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 199.866 ___[Match] 1.0 ___[Frames] count: 48.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672966.863157008] [sift]: [SIFT] frame: 51
+[sift-2] [INFO] [1706672967.600796240] [sift]: [SIFT] len des1: 12372
+[sift-2] [INFO] [1706672967.603430064] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672976.351287024] [sift]: --- 9.481657981872559 seconds ---
+[sift-2] [INFO] [1706672976.354739824] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672976.389163888] [cubepilot]: [SIFT][GPS_2] lat: 10.978893280029297, lon: 106.5664291381836 ___[GPS_1] lat: 10.97889518737793, lon: 106.56645202636719, alt: 200.064 ___[Match] 1.0 ___[Frames] count: 51.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672976.704895568] [sift]: [SIFT] frame: 54
+[sift-2] [INFO] [1706672977.375107632] [sift]: [SIFT] len des1: 11966
+[sift-2] [INFO] [1706672977.379969360] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672985.472130032] [sift]: --- 8.764057159423828 seconds ---
+[sift-2] [INFO] [1706672985.474707824] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672985.489158000] [cubepilot]: [SIFT][GPS_2] lat: 10.978864669799805, lon: 106.56639099121094 ___[GPS_1] lat: 10.97884750366211, lon: 106.56635284423828, alt: 200.1 ___[Match] 1.0 ___[Frames] count: 54.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672985.820585392] [sift]: [SIFT] frame: 57
+[sift-2] [INFO] [1706672986.515465456] [sift]: [SIFT] len des1: 12119
+[sift-2] [INFO] [1706672986.517907344] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706672994.546603216] [sift]: --- 8.723130702972412 seconds ---
+[sift-2] [INFO] [1706672994.550899376] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706672994.588004464] [cubepilot]: [SIFT][GPS_2] lat: 10.97882080078125, lon: 106.56629943847656 ___[GPS_1] lat: 10.978792190551758, lon: 106.56623840332031, alt: 200.028 ___[Match] 1.0 ___[Frames] count: 57.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706672994.885617584] [sift]: [SIFT] frame: 60
+[sift-2] [INFO] [1706672995.566709168] [sift]: [SIFT] len des1: 11574
+[sift-2] [INFO] [1706672995.569245776] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673003.383499312] [sift]: --- 8.494651079177856 seconds ---
+[sift-2] [INFO] [1706673003.386353200] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673003.489169072] [cubepilot]: [SIFT][GPS_2] lat: 10.978758811950684, lon: 106.5661849975586 ___[GPS_1] lat: 10.978737831115723, lon: 106.56613159179688, alt: 200.058 ___[Match] 1.0 ___[Frames] count: 60.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673003.737973808] [sift]: [SIFT] frame: 63
+[sift-2] [INFO] [1706673004.411241072] [sift]: [SIFT] len des1: 11514
+[sift-2] [INFO] [1706673004.413732112] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673013.970791824] [sift]: --- 10.229761600494385 seconds ---
+[sift-2] [INFO] [1706673013.973362800] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673013.989054768] [cubepilot]: [SIFT][GPS_2] lat: 10.978703498840332, lon: 106.56607818603516 ___[GPS_1] lat: 10.978684425354004, lon: 106.56602478027344, alt: 200.005 ___[Match] 1.0 ___[Frames] count: 63.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673014.330916944] [sift]: [SIFT] frame: 66
+[sift-2] [INFO] [1706673015.107943152] [sift]: [SIFT] len des1: 12074
+[sift-2] [INFO] [1706673015.112833008] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673023.703350448] [sift]: --- 9.369218349456787 seconds ---
+[sift-2] [INFO] [1706673023.707471120] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673023.792648368] [cubepilot]: [SIFT][GPS_2] lat: 10.978639602661133, lon: 106.56595611572266 ___[GPS_1] lat: 10.978619575500488, lon: 106.5658950805664, alt: 200.016 ___[Match] 1.0 ___[Frames] count: 66.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673024.043573872] [sift]: [SIFT] frame: 69
+[sift-2] [INFO] [1706673024.855596720] [sift]: [SIFT] len des1: 11984
+[sift-2] [INFO] [1706673024.858030736] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673033.632665776] [sift]: --- 9.586057424545288 seconds ---
+[sift-2] [INFO] [1706673033.635580784] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673033.690763760] [cubepilot]: [SIFT][GPS_2] lat: 10.978570938110352, lon: 106.56584167480469 ___[GPS_1] lat: 10.978561401367188, lon: 106.5657730102539, alt: 199.996 ___[Match] 1.0 ___[Frames] count: 69.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673033.969660080] [sift]: [SIFT] frame: 72
+[sift-2] [INFO] [1706673034.754714128] [sift]: [SIFT] len des1: 11880
+[sift-2] [INFO] [1706673034.757317008] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673042.480968656] [sift]: --- 8.504809617996216 seconds ---
+[sift-2] [INFO] [1706673042.483649456] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673042.596477328] [cubepilot]: [SIFT][GPS_2] lat: 10.978511810302734, lon: 106.56571960449219 ___[GPS_1] lat: 10.978501319885254, lon: 106.5656509399414, alt: 200.061 ___[Match] 1.0 ___[Frames] count: 72.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673042.817303440] [sift]: [SIFT] frame: 75
+[sift-2] [INFO] [1706673043.475817296] [sift]: [SIFT] len des1: 11812
+[sift-2] [INFO] [1706673043.478370160] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673051.132511472] [sift]: --- 8.312360525131226 seconds ---
+[sift-2] [INFO] [1706673051.135233968] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673051.198163856] [cubepilot]: [SIFT][GPS_2] lat: 10.978460311889648, lon: 106.56560516357422 ___[GPS_1] lat: 10.978447914123535, lon: 106.56554412841797, alt: 200.053 ___[Match] 1.0 ___[Frames] count: 75.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673051.496891344] [sift]: [SIFT] frame: 78
+[sift-2] [INFO] [1706673052.186298128] [sift]: [SIFT] len des1: 11939
+[sift-2] [INFO] [1706673052.191130128] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673060.013661904] [sift]: --- 8.51362133026123 seconds ---
+[sift-2] [INFO] [1706673060.016276464] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673060.091419248] [cubepilot]: [SIFT][GPS_2] lat: 10.978413581848145, lon: 106.56550598144531 ___[GPS_1] lat: 10.978394508361816, lon: 106.56543731689453, alt: 200.021 ___[Match] 1.0 ___[Frames] count: 78.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673060.360492528] [sift]: [SIFT] frame: 81
+[sift-2] [INFO] [1706673061.059735472] [sift]: [SIFT] len des1: 11993
+[sift-2] [INFO] [1706673061.064879984] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673070.241489680] [sift]: --- 9.878256559371948 seconds ---
+[sift-2] [INFO] [1706673070.244001104] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673070.292033744] [cubepilot]: [SIFT][GPS_2] lat: 10.978358268737793, lon: 106.5654067993164 ___[GPS_1] lat: 10.978340148925781, lon: 106.5653305053711, alt: 199.994 ___[Match] 1.0 ___[Frames] count: 81.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673070.587867184] [sift]: [SIFT] frame: 84
+[sift-2] [INFO] [1706673071.265684240] [sift]: [SIFT] len des1: 11918
+[sift-2] [INFO] [1706673071.268515888] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673079.160520816] [sift]: --- 8.566799640655518 seconds ---
+[sift-2] [INFO] [1706673079.163127280] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673079.190713744] [cubepilot]: [SIFT][GPS_2] lat: 10.978299140930176, lon: 106.56529235839844 ___[GPS_1] lat: 10.978277206420898, lon: 106.56520080566406, alt: 199.983 ___[Match] 1.0 ___[Frames] count: 84.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673079.494949776] [sift]: [SIFT] frame: 87
+[sift-2] [INFO] [1706673080.155905520] [sift]: [SIFT] len des1: 11944
+[sift-2] [INFO] [1706673080.158354192] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673087.701190736] [sift]: --- 8.203237771987915 seconds ---
+[sift-2] [INFO] [1706673087.703901712] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673087.790575920] [cubepilot]: [SIFT][GPS_2] lat: 10.978238105773926, lon: 106.565185546875 ___[GPS_1] lat: 10.978225708007812, lon: 106.56509399414062, alt: 200.041 ___[Match] 1.0 ___[Frames] count: 87.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673088.037323920] [sift]: [SIFT] frame: 90
+[sift-2] [INFO] [1706673088.723215760] [sift]: [SIFT] len des1: 11558
+[sift-2] [INFO] [1706673088.725578384] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673096.191427728] [sift]: --- 8.148732900619507 seconds ---
+[sift-2] [INFO] [1706673096.194079792] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673096.288903568] [cubepilot]: [SIFT][GPS_2] lat: 10.97818660736084, lon: 106.56507873535156 ___[GPS_1] lat: 10.978187561035156, lon: 106.56498718261719, alt: 200.101 ___[Match] 1.0 ___[Frames] count: 90.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673096.561166064] [sift]: [SIFT] frame: 93
+[sift-2] [INFO] [1706673097.262712336] [sift]: [SIFT] len des1: 13023
+[sift-2] [INFO] [1706673097.269597936] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673105.085951344] [sift]: --- 8.521724224090576 seconds ---
+[sift-2] [INFO] [1706673105.088737296] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673105.189333872] [cubepilot]: [SIFT][GPS_2] lat: 10.9782133102417, lon: 106.56497192382812 ___[GPS_1] lat: 10.978278160095215, lon: 106.56494140625, alt: 200.133 ___[Match] 1.0 ___[Frames] count: 93.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673105.425678224] [sift]: [SIFT] frame: 96
+[sift-2] [INFO] [1706673106.098943696] [sift]: [SIFT] len des1: 12615
+[sift-2] [INFO] [1706673106.101640112] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673113.956322832] [sift]: --- 8.527591466903687 seconds ---
+[sift-2] [INFO] [1706673113.958836112] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673113.992317360] [cubepilot]: [SIFT][GPS_2] lat: 10.97830581665039, lon: 106.56488800048828 ___[GPS_1] lat: 10.97838020324707, lon: 106.56488037109375, alt: 200.143 ___[Match] 1.0 ___[Frames] count: 96.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673114.311896688] [sift]: [SIFT] frame: 99
+[sift-2] [INFO] [1706673114.997542544] [sift]: [SIFT] len des1: 12624
+[sift-2] [INFO] [1706673115.002648752] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673123.433824272] [sift]: --- 9.118955612182617 seconds ---
+[sift-2] [INFO] [1706673123.436481616] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673123.491758128] [cubepilot]: [SIFT][GPS_2] lat: 10.978423118591309, lon: 106.56482696533203 ___[GPS_1] lat: 10.978484153747559, lon: 106.5648193359375, alt: 200.144 ___[Match] 1.0 ___[Frames] count: 99.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673123.765949392] [sift]: [SIFT] frame: 102
+[sift-2] [INFO] [1706673124.446151120] [sift]: [SIFT] len des1: 13265
+[sift-2] [INFO] [1706673124.449832816] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673132.930721360] [sift]: --- 9.16183066368103 seconds ---
+[sift-2] [INFO] [1706673132.933312368] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673132.993167504] [cubepilot]: [SIFT][GPS_2] lat: 10.978540420532227, lon: 106.56475830078125 ___[GPS_1] lat: 10.978595733642578, lon: 106.56475830078125, alt: 200.145 ___[Match] 1.0 ___[Frames] count: 102.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673133.261111728] [sift]: [SIFT] frame: 105
+[sift-2] [INFO] [1706673133.932530704] [sift]: [SIFT] len des1: 13162
+[sift-2] [INFO] [1706673133.935039376] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673142.546738128] [sift]: --- 9.280656576156616 seconds ---
+[sift-2] [INFO] [1706673142.549328720] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673142.590858128] [cubepilot]: [SIFT][GPS_2] lat: 10.978656768798828, lon: 106.564697265625 ___[GPS_1] lat: 10.978707313537598, lon: 106.56468963623047, alt: 200.165 ___[Match] 1.0 ___[Frames] count: 105.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673142.885196048] [sift]: [SIFT] frame: 108
+[sift-2] [INFO] [1706673143.575026032] [sift]: [SIFT] len des1: 13381
+[sift-2] [INFO] [1706673143.582041392] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673152.985701392] [sift]: --- 10.09740686416626 seconds ---
+[sift-2] [INFO] [1706673152.988383504] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673153.090037264] [cubepilot]: [SIFT][GPS_2] lat: 10.978774070739746, lon: 106.56462860107422 ___[GPS_1] lat: 10.97882080078125, lon: 106.56462097167969, alt: 200.128 ___[Match] 1.0 ___[Frames] count: 108.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673153.333750448] [sift]: [SIFT] frame: 111
+[sift-2] [INFO] [1706673153.991485296] [sift]: [SIFT] len des1: 13878
+[sift-2] [INFO] [1706673153.996028880] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673163.137208848] [sift]: --- 9.798443794250488 seconds ---
+[sift-2] [INFO] [1706673163.141836400] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673163.190182928] [cubepilot]: [SIFT][GPS_2] lat: 10.978900909423828, lon: 106.56456756591797 ___[GPS_1] lat: 10.978943824768066, lon: 106.56455993652344, alt: 200.149 ___[Match] 1.0 ___[Frames] count: 111.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673163.462148368] [sift]: [SIFT] frame: 114
+[sift-2] [INFO] [1706673164.090115152] [sift]: [SIFT] len des1: 12879
+[sift-2] [INFO] [1706673164.092842992] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673172.243174352] [sift]: --- 8.778069496154785 seconds ---
+[sift-2] [INFO] [1706673172.245811088] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673172.288254672] [cubepilot]: [SIFT][GPS_2] lat: 10.97902774810791, lon: 106.56451416015625 ___[GPS_1] lat: 10.9790620803833, lon: 106.56449127197266, alt: 200.15 ___[Match] 1.0 ___[Frames] count: 114.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673172.568127600] [sift]: [SIFT] frame: 117
+[sift-2] [INFO] [1706673173.261350640] [sift]: [SIFT] len des1: 13566
+[sift-2] [INFO] [1706673173.265222480] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673182.010362096] [sift]: --- 9.439136028289795 seconds ---
+[sift-2] [INFO] [1706673182.012978032] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673182.091330160] [cubepilot]: [SIFT][GPS_2] lat: 10.979142189025879, lon: 106.56446075439453 ___[GPS_1] lat: 10.979168891906738, lon: 106.5644302368164, alt: 200.168 ___[Match] 1.0 ___[Frames] count: 117.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673182.355748720] [sift]: [SIFT] frame: 120
+[sift-2] [INFO] [1706673183.049754384] [sift]: [SIFT] len des1: 13941
+[sift-2] [INFO] [1706673183.052461072] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673191.277938000] [sift]: --- 8.919090032577515 seconds ---
+[sift-2] [INFO] [1706673191.280624208] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673191.394264688] [cubepilot]: [SIFT][GPS_2] lat: 10.979254722595215, lon: 106.56439971923828 ___[GPS_1] lat: 10.97928237915039, lon: 106.56436157226562, alt: 200.145 ___[Match] 1.0 ___[Frames] count: 120.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673191.601054096] [sift]: [SIFT] frame: 123
+[sift-2] [INFO] [1706673192.281750128] [sift]: [SIFT] len des1: 13821
+[sift-2] [INFO] [1706673192.284332400] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673200.248972688] [sift]: --- 8.642821073532104 seconds ---
+[sift-2] [INFO] [1706673200.251648400] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673200.291810032] [cubepilot]: [SIFT][GPS_2] lat: 10.979368209838867, lon: 106.56434631347656 ___[GPS_1] lat: 10.979391098022461, lon: 106.56430053710938, alt: 200.153 ___[Match] 1.0 ___[Frames] count: 123.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673200.586702960] [sift]: [SIFT] frame: 126
+[sift-2] [INFO] [1706673201.243969872] [sift]: [SIFT] len des1: 13731
+[sift-2] [INFO] [1706673201.248460368] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673209.005585808] [sift]: --- 8.415873527526855 seconds ---
+[sift-2] [INFO] [1706673209.008190704] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673209.090869904] [cubepilot]: [SIFT][GPS_2] lat: 10.979471206665039, lon: 106.56427764892578 ___[GPS_1] lat: 10.979496002197266, lon: 106.56423950195312, alt: 200.109 ___[Match] 1.0 ___[Frames] count: 126.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673209.337683920] [sift]: [SIFT] frame: 129
+[sift-2] [INFO] [1706673210.016513776] [sift]: [SIFT] len des1: 13621
+[sift-2] [INFO] [1706673210.021676240] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673217.673124720] [sift]: --- 8.332324028015137 seconds ---
+[sift-2] [INFO] [1706673217.676047184] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673217.688565584] [cubepilot]: [SIFT][GPS_2] lat: 10.979574203491211, lon: 106.56421661376953 ___[GPS_1] lat: 10.979598045349121, lon: 106.56417846679688, alt: 200.11 ___[Match] 1.0 ___[Frames] count: 129.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673218.020604016] [sift]: [SIFT] frame: 132
+[sift-2] [INFO] [1706673218.748796816] [sift]: [SIFT] len des1: 13909
+[sift-2] [INFO] [1706673218.751494768] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673227.710863728] [sift]: --- 9.686427116394043 seconds ---
+[sift-2] [INFO] [1706673227.716257200] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673227.788546800] [cubepilot]: [SIFT][GPS_2] lat: 10.979673385620117, lon: 106.56416320800781 ___[GPS_1] lat: 10.979700088500977, lon: 106.56411743164062, alt: 200.063 ___[Match] 1.0 ___[Frames] count: 132.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673228.038748560] [sift]: [SIFT] frame: 135
+[sift-2] [INFO] [1706673228.704673936] [sift]: [SIFT] len des1: 13225
+[sift-2] [INFO] [1706673228.707712112] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673235.947730992] [sift]: --- 7.905778646469116 seconds ---
+[sift-2] [INFO] [1706673235.950309264] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673235.996996592] [cubepilot]: [SIFT][GPS_2] lat: 10.97978401184082, lon: 106.56410217285156 ___[GPS_1] lat: 10.979818344116211, lon: 106.56405639648438, alt: 200.167 ___[Match] 1.0 ___[Frames] count: 135.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673236.274331440] [sift]: [SIFT] frame: 138
+[sift-2] [INFO] [1706673236.935728016] [sift]: [SIFT] len des1: 13043
+[sift-2] [INFO] [1706673236.941752720] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673243.662686768] [sift]: --- 7.3831260204315186 seconds ---
+[sift-2] [INFO] [1706673243.666327920] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673243.690164880] [cubepilot]: [SIFT][GPS_2] lat: 10.979890823364258, lon: 106.56404876708984 ___[GPS_1] lat: 10.979914665222168, lon: 106.56399536132812, alt: 200.096 ___[Match] 1.0 ___[Frames] count: 138.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673243.989330352] [sift]: [SIFT] frame: 141
+[sift-2] [INFO] [1706673244.673101392] [sift]: [SIFT] len des1: 13193
+[sift-2] [INFO] [1706673244.677527792] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673251.359109904] [sift]: --- 7.364671230316162 seconds ---
+[sift-2] [INFO] [1706673251.361749616] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673251.390172848] [cubepilot]: [SIFT][GPS_2] lat: 10.979982376098633, lon: 106.5639877319336 ___[GPS_1] lat: 10.980005264282227, lon: 106.5639419555664, alt: 200.076 ___[Match] 1.0 ___[Frames] count: 141.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673251.682432976] [sift]: [SIFT] frame: 144
+[sift-2] [INFO] [1706673252.358860144] [sift]: [SIFT] len des1: 11756
+[sift-2] [INFO] [1706673252.364639312] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673258.270096144] [sift]: --- 6.58401083946228 seconds ---
+[sift-2] [INFO] [1706673258.272722288] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673258.289169488] [cubepilot]: [SIFT][GPS_2] lat: 10.980069160461426, lon: 106.56393432617188 ___[GPS_1] lat: 10.980094909667969, lon: 106.56389617919922, alt: 200.105 ___[Match] 1.0 ___[Frames] count: 144.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673258.602191664] [sift]: [SIFT] frame: 147
+[sift-2] [INFO] [1706673259.243585136] [sift]: [SIFT] len des1: 12887
+[sift-2] [INFO] [1706673259.246231760] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673265.852645808] [sift]: --- 7.2473883628845215 seconds ---
+[sift-2] [INFO] [1706673265.855319504] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673265.891538672] [cubepilot]: [SIFT][GPS_2] lat: 10.980151176452637, lon: 106.56388854980469 ___[GPS_1] lat: 10.980175971984863, lon: 106.56385040283203, alt: 200.005 ___[Match] 1.0 ___[Frames] count: 147.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673266.200392752] [sift]: [SIFT] frame: 150
+[sift-2] [INFO] [1706673266.879829872] [sift]: [SIFT] len des1: 12866
+[sift-2] [INFO] [1706673266.882581488] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673274.771749712] [sift]: --- 8.56825876235962 seconds ---
+[sift-2] [INFO] [1706673274.774248112] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673274.789723952] [cubepilot]: [SIFT][GPS_2] lat: 10.980234146118164, lon: 106.5638427734375 ___[GPS_1] lat: 10.980262756347656, lon: 106.56379699707031, alt: 200.115 ___[Match] 1.0 ___[Frames] count: 150.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673275.125617776] [sift]: [SIFT] frame: 153
+[sift-2] [INFO] [1706673275.750425904] [sift]: [SIFT] len des1: 12176
+[sift-2] [INFO] [1706673275.759433232] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673281.544157008] [sift]: --- 6.41537618637085 seconds ---
+[sift-2] [INFO] [1706673281.546761072] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673281.596732016] [cubepilot]: [SIFT][GPS_2] lat: 10.980330467224121, lon: 106.56378173828125 ___[GPS_1] lat: 10.980365753173828, lon: 106.56373596191406, alt: 200.06 ___[Match] 1.0 ___[Frames] count: 153.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673281.860646384] [sift]: [SIFT] frame: 156
+[sift-2] [INFO] [1706673282.540702576] [sift]: [SIFT] len des1: 12390
+[sift-2] [INFO] [1706673282.548301968] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673287.972371280] [sift]: --- 6.1086695194244385 seconds ---
+[sift-2] [INFO] [1706673287.975001808] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673287.990331696] [cubepilot]: [SIFT][GPS_2] lat: 10.980420112609863, lon: 106.56373596191406 ___[GPS_1] lat: 10.98044490814209, lon: 106.56369018554688, alt: 200.197 ___[Match] 1.0 ___[Frames] count: 156.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673288.310742320] [sift]: [SIFT] frame: 159
+[sift-2] [INFO] [1706673288.941378960] [sift]: [SIFT] len des1: 11395
+[sift-2] [INFO] [1706673288.944088400] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673294.088367024] [sift]: --- 5.772766828536987 seconds ---
+[sift-2] [INFO] [1706673294.093844528] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673294.190067056] [cubepilot]: [SIFT][GPS_2] lat: 10.98049545288086, lon: 106.56369018554688 ___[GPS_1] lat: 10.98051929473877, lon: 106.56365203857422, alt: 200.267 ___[Match] 1.0 ___[Frames] count: 159.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673294.401764848] [sift]: [SIFT] frame: 162
+[sift-2] [INFO] [1706673295.073752400] [sift]: [SIFT] len des1: 12725
+[sift-2] [INFO] [1706673295.076447184] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673300.455397424] [sift]: --- 6.047800779342651 seconds ---
+[sift-2] [INFO] [1706673300.458024880] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673300.489200240] [cubepilot]: [SIFT][GPS_2] lat: 10.980555534362793, lon: 106.56366729736328 ___[GPS_1] lat: 10.98058795928955, lon: 106.56369018554688, alt: 200.12 ___[Match] 1.0 ___[Frames] count: 162.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673300.800186608] [sift]: [SIFT] frame: 165
+[sift-2] [INFO] [1706673301.593166128] [sift]: [SIFT] len des1: 13166
+[sift-2] [INFO] [1706673301.595745488] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673310.210983312] [sift]: --- 9.407244205474854 seconds ---
+[sift-2] [INFO] [1706673310.213471120] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673310.291575760] [cubepilot]: [SIFT][GPS_2] lat: 10.980626106262207, lon: 106.56371307373047 ___[GPS_1] lat: 10.980639457702637, lon: 106.56376647949219, alt: 200.168 ___[Match] 1.0 ___[Frames] count: 165.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673310.535970384] [sift]: [SIFT] frame: 168
+[sift-2] [INFO] [1706673311.211370672] [sift]: [SIFT] len des1: 12924
+[sift-2] [INFO] [1706673311.215733360] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673321.542500272] [sift]: --- 11.002431869506836 seconds ---
+[sift-2] [INFO] [1706673321.545130288] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673321.589789680] [cubepilot]: [SIFT][GPS_2] lat: 10.980714797973633, lon: 106.56381225585938 ___[GPS_1] lat: 10.980732917785645, lon: 106.56385803222656, alt: 200.196 ___[Match] 1.0 ___[Frames] count: 168.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673321.866120816] [sift]: [SIFT] frame: 171
+[sift-2] [INFO] [1706673322.502337424] [sift]: [SIFT] len des1: 13167
+[sift-2] [INFO] [1706673322.504871952] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673331.745507792] [sift]: --- 9.876298904418945 seconds ---
+[sift-2] [INFO] [1706673331.748143152] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673331.796555056] [cubepilot]: [SIFT][GPS_2] lat: 10.980809211730957, lon: 106.5639419555664 ___[GPS_1] lat: 10.980840682983398, lon: 106.56397247314453, alt: 200.022 ___[Match] 1.0 ___[Frames] count: 171.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673332.074709008] [sift]: [SIFT] frame: 174
+[sift-2] [INFO] [1706673332.709700304] [sift]: [SIFT] len des1: 12656
+[sift-2] [INFO] [1706673332.713036528] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673341.412529328] [sift]: --- 9.334625959396362 seconds ---
+[sift-2] [INFO] [1706673341.415150448] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673341.492388016] [cubepilot]: [SIFT][GPS_2] lat: 10.980864524841309, lon: 106.56407165527344 ___[GPS_1] lat: 10.980766296386719, lon: 106.56404876708984, alt: 200.02 ___[Match] 1.0 ___[Frames] count: 174.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673341.734599056] [sift]: [SIFT] frame: 177
+[sift-2] [INFO] [1706673342.351219408] [sift]: [SIFT] len des1: 11812
+[sift-2] [INFO] [1706673342.357692944] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673349.304797648] [sift]: --- 7.565397262573242 seconds ---
+[sift-2] [INFO] [1706673349.309559184] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673349.388918960] [cubepilot]: [SIFT][GPS_2] lat: 10.980775833129883, lon: 106.56415557861328 ___[GPS_1] lat: 10.980649948120117, lon: 106.56411743164062, alt: 200.02 ___[Match] 1.0 ___[Frames] count: 177.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673349.651837296] [sift]: [SIFT] frame: 180
+[sift-2] [INFO] [1706673350.305541008] [sift]: [SIFT] len des1: 12281
+[sift-2] [INFO] [1706673350.307994480] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673359.245756432] [sift]: --- 9.590795278549194 seconds ---
+[sift-2] [INFO] [1706673359.248434352] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673359.289802960] [cubepilot]: [SIFT][GPS_2] lat: 10.980649948120117, lon: 106.56421661376953 ___[GPS_1] lat: 10.980558395385742, lon: 106.56417083740234, alt: 200.073 ___[Match] 1.0 ___[Frames] count: 180.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673359.567186544] [sift]: [SIFT] frame: 183
+[sift-2] [INFO] [1706673360.169296176] [sift]: [SIFT] len des1: 10907
+[sift-2] [INFO] [1706673360.172438960] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673368.940143152] [sift]: --- 9.369834184646606 seconds ---
+[sift-2] [INFO] [1706673368.943727152] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673368.993697552] [cubepilot]: [SIFT][GPS_2] lat: 10.980530738830566, lon: 106.56427764892578 ___[GPS_1] lat: 10.980441093444824, lon: 106.5642318725586, alt: 200.001 ___[Match] 1.0 ___[Frames] count: 183.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673369.271823088] [sift]: [SIFT] frame: 186
+[sift-2] [INFO] [1706673369.894906352] [sift]: [SIFT] len des1: 10681
+[sift-2] [INFO] [1706673369.899453296] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673378.423655472] [sift]: --- 9.148812294006348 seconds ---
+[sift-2] [INFO] [1706673378.426390032] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673378.488983472] [cubepilot]: [SIFT][GPS_2] lat: 10.980411529541016, lon: 106.56434631347656 ___[GPS_1] lat: 10.980328559875488, lon: 106.56430053710938, alt: 200.086 ___[Match] 1.0 ___[Frames] count: 186.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673378.742383312] [sift]: [SIFT] frame: 189
+[sift-2] [INFO] [1706673379.378007504] [sift]: [SIFT] len des1: 11337
+[sift-2] [INFO] [1706673379.380724368] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673387.720089168] [sift]: --- 8.974565029144287 seconds ---
+[sift-2] [INFO] [1706673387.722719376] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673387.791539248] [cubepilot]: [SIFT][GPS_2] lat: 10.980301856994629, lon: 106.56440734863281 ___[GPS_1] lat: 10.980216979980469, lon: 106.56436157226562, alt: 200.081 ___[Match] 1.0 ___[Frames] count: 189.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673388.041051600] [sift]: [SIFT] frame: 192
+[sift-2] [INFO] [1706673388.701622128] [sift]: [SIFT] len des1: 11774
+[sift-2] [INFO] [1706673388.704117008] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673397.576680240] [sift]: --- 9.532469749450684 seconds ---
+[sift-2] [INFO] [1706673397.579313456] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673397.686450608] [cubepilot]: [SIFT][GPS_2] lat: 10.980192184448242, lon: 106.56446838378906 ___[GPS_1] lat: 10.980109214782715, lon: 106.56442260742188, alt: 200.105 ___[Match] 1.0 ___[Frames] count: 192.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673397.903683024] [sift]: [SIFT] frame: 195
+[sift-2] [INFO] [1706673398.523248592] [sift]: [SIFT] len des1: 11598
+[sift-2] [INFO] [1706673398.525923440] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673407.362072720] [sift]: --- 9.455471515655518 seconds ---
+[sift-2] [INFO] [1706673407.367448272] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673407.390879824] [cubepilot]: [SIFT][GPS_2] lat: 10.980080604553223, lon: 106.56453704833984 ___[GPS_1] lat: 10.979992866516113, lon: 106.56449127197266, alt: 199.991 ___[Match] 1.0 ___[Frames] count: 195.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673407.707261872] [sift]: [SIFT] frame: 198
+[sift-2] [INFO] [1706673408.504990992] [sift]: [SIFT] len des1: 11259
+[sift-2] [INFO] [1706673408.507477104] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673417.169402640] [sift]: --- 9.459044694900513 seconds ---
+[sift-2] [INFO] [1706673417.176282512] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673417.291765136] [cubepilot]: [SIFT][GPS_2] lat: 10.979970932006836, lon: 106.56460571289062 ___[GPS_1] lat: 10.979878425598145, lon: 106.56455993652344, alt: 200.078 ___[Match] 1.0 ___[Frames] count: 198.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673417.512458768] [sift]: [SIFT] frame: 201
+[sift-2] [INFO] [1706673418.167007344] [sift]: [SIFT] len des1: 10924
+[sift-2] [INFO] [1706673418.169577136] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673426.761658960] [sift]: --- 9.246085405349731 seconds ---
+[sift-2] [INFO] [1706673426.764333328] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673426.800608208] [cubepilot]: [SIFT][GPS_2] lat: 10.979860305786133, lon: 106.56466674804688 ___[GPS_1] lat: 10.979763984680176, lon: 106.56462097167969, alt: 199.997 ___[Match] 1.0 ___[Frames] count: 201.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673427.109659056] [sift]: [SIFT] frame: 204
+[sift-2] [INFO] [1706673427.852498128] [sift]: [SIFT] len des1: 12884
+[sift-2] [INFO] [1706673427.857919728] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673437.889664016] [sift]: --- 10.776996850967407 seconds ---
+[sift-2] [INFO] [1706673437.895171376] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673437.986569168] [cubepilot]: [SIFT][GPS_2] lat: 10.979747772216797, lon: 106.56472778320312 ___[GPS_1] lat: 10.97965145111084, lon: 106.56468963623047, alt: 200.045 ___[Match] 1.0 ___[Frames] count: 204.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673438.215296016] [sift]: [SIFT] frame: 207
+[sift-2] [INFO] [1706673438.822083440] [sift]: [SIFT] len des1: 11725
+[sift-2] [INFO] [1706673438.824583728] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673448.373126608] [sift]: --- 10.15259599685669 seconds ---
+[sift-2] [INFO] [1706673448.375868592] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673448.388987024] [cubepilot]: [SIFT][GPS_2] lat: 10.979623794555664, lon: 106.56478881835938 ___[GPS_1] lat: 10.979520797729492, lon: 106.56476593017578, alt: 200.046 ___[Match] 1.0 ___[Frames] count: 207.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673448.696550448] [sift]: [SIFT] frame: 210
+[sift-2] [INFO] [1706673449.347700016] [sift]: [SIFT] len des1: 11832
+[sift-2] [INFO] [1706673449.352497040] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673459.143437680] [sift]: --- 10.44394326210022 seconds ---
+[sift-2] [INFO] [1706673459.146003504] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673459.189724400] [cubepilot]: [SIFT][GPS_2] lat: 10.979500770568848, lon: 106.56485748291016 ___[GPS_1] lat: 10.97939682006836, lon: 106.56483459472656, alt: 199.988 ___[Match] 1.0 ___[Frames] count: 210.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673459.464769904] [sift]: [SIFT] frame: 213
+[sift-2] [INFO] [1706673460.117731344] [sift]: [SIFT] len des1: 11667
+[sift-2] [INFO] [1706673460.122857712] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673469.336089872] [sift]: --- 9.868236780166626 seconds ---
+[sift-2] [INFO] [1706673469.338646192] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673469.393085232] [cubepilot]: [SIFT][GPS_2] lat: 10.979375839233398, lon: 106.56492614746094 ___[GPS_1] lat: 10.979270935058594, lon: 106.56491088867188, alt: 200.035 ___[Match] 1.0 ___[Frames] count: 213.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673469.652659952] [sift]: [SIFT] frame: 216
+[sift-2] [INFO] [1706673470.287331792] [sift]: [SIFT] len des1: 11619
+[sift-2] [INFO] [1706673470.290600816] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673479.454575760] [sift]: --- 9.798804998397827 seconds ---
+[sift-2] [INFO] [1706673479.458423024] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673479.508452560] [cubepilot]: [SIFT][GPS_2] lat: 10.979253768920898, lon: 106.56499481201172 ___[GPS_1] lat: 10.979151725769043, lon: 106.56497192382812, alt: 200.098 ___[Match] 1.0 ___[Frames] count: 216.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673479.796169136] [sift]: [SIFT] frame: 219
+[sift-2] [INFO] [1706673480.477406576] [sift]: [SIFT] len des1: 11654
+[sift-2] [INFO] [1706673480.481158672] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673489.765510416] [sift]: --- 9.96627402305603 seconds ---
+[sift-2] [INFO] [1706673489.768163856] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673489.793080880] [cubepilot]: [SIFT][GPS_2] lat: 10.97913646697998, lon: 106.5650634765625 ___[GPS_1] lat: 10.97903060913086, lon: 106.5650405883789, alt: 200.051 ___[Match] 1.0 ___[Frames] count: 219.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673490.082132496] [sift]: [SIFT] frame: 222
+[sift-2] [INFO] [1706673490.795940144] [sift]: [SIFT] len des1: 10714
+[sift-2] [INFO] [1706673490.798412144] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673500.606723728] [sift]: --- 10.51847529411316 seconds ---
+[sift-2] [INFO] [1706673500.609381936] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673500.691741104] [cubepilot]: [SIFT][GPS_2] lat: 10.979019165039062, lon: 106.56513977050781 ___[GPS_1] lat: 10.978912353515625, lon: 106.56511688232422, alt: 199.986 ___[Match] 1.0 ___[Frames] count: 222.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673500.934768400] [sift]: [SIFT] frame: 225
+[sift-2] [INFO] [1706673501.541459440] [sift]: [SIFT] len des1: 10931
+[sift-2] [INFO] [1706673501.544570800] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673510.144645936] [sift]: --- 9.204430341720581 seconds ---
+[sift-2] [INFO] [1706673510.147261008] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673510.193505488] [cubepilot]: [SIFT][GPS_2] lat: 10.97889232635498, lon: 106.5652084350586 ___[GPS_1] lat: 10.97878360748291, lon: 106.565185546875, alt: 199.942 ___[Match] 1.0 ___[Frames] count: 225.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673510.481561904] [sift]: [SIFT] frame: 228
+[sift-2] [INFO] [1706673511.166984912] [sift]: [SIFT] len des1: 12824
+[sift-2] [INFO] [1706673511.173960144] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673520.545710960] [sift]: --- 10.06112265586853 seconds ---
+[sift-2] [INFO] [1706673520.548319504] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673520.590871088] [cubepilot]: [SIFT][GPS_2] lat: 10.97877311706543, lon: 106.56526947021484 ___[GPS_1] lat: 10.978672981262207, lon: 106.56524658203125, alt: 200.076 ___[Match] 1.0 ___[Frames] count: 228.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673520.882452400] [sift]: [SIFT] frame: 231
+[sift-2] [INFO] [1706673521.537687536] [sift]: [SIFT] len des1: 10576
+[sift-2] [INFO] [1706673521.540324976] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673529.893139888] [sift]: --- 9.007410526275635 seconds ---
+[sift-2] [INFO] [1706673529.896091600] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673529.991841488] [cubepilot]: [SIFT][GPS_2] lat: 10.978660583496094, lon: 106.56533813476562 ___[GPS_1] lat: 10.978551864624023, lon: 106.56532287597656, alt: 199.987 ___[Match] 1.0 ___[Frames] count: 231.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673530.214736720] [sift]: [SIFT] frame: 234
+[sift-2] [INFO] [1706673530.850665552] [sift]: [SIFT] len des1: 10383
+[sift-2] [INFO] [1706673530.853154768] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673539.004368752] [sift]: --- 8.784136056900024 seconds ---
+[sift-2] [INFO] [1706673539.006966160] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673539.093310704] [cubepilot]: [SIFT][GPS_2] lat: 10.978547096252441, lon: 106.5654067993164 ___[GPS_1] lat: 10.978442192077637, lon: 106.56538391113281, alt: 200.121 ___[Match] 1.0 ___[Frames] count: 234.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673539.329458704] [sift]: [SIFT] frame: 237
+[sift-2] [INFO] [1706673540.120951632] [sift]: [SIFT] len des1: 10402
+[sift-2] [INFO] [1706673540.126877488] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673548.367273520] [sift]: --- 9.032156229019165 seconds ---
+[sift-2] [INFO] [1706673548.369839888] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673548.389101424] [cubepilot]: [SIFT][GPS_2] lat: 10.97844123840332, lon: 106.56546783447266 ___[GPS_1] lat: 10.978334426879883, lon: 106.56544494628906, alt: 200.035 ___[Match] 1.0 ___[Frames] count: 237.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673548.689124016] [sift]: [SIFT] frame: 240
+[sift-2] [INFO] [1706673549.308846736] [sift]: [SIFT] len des1: 10546
+[sift-2] [INFO] [1706673549.312007632] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673556.628855056] [sift]: --- 7.936699628829956 seconds ---
+[sift-2] [INFO] [1706673556.632149584] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673556.691103408] [cubepilot]: [SIFT][GPS_2] lat: 10.978334426879883, lon: 106.5655288696289 ___[GPS_1] lat: 10.978229522705078, lon: 106.56551361083984, alt: 200.077 ___[Match] 1.0 ___[Frames] count: 240.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673556.958004848] [sift]: [SIFT] frame: 243
+[sift-2] [INFO] [1706673557.573430704] [sift]: [SIFT] len des1: 11778
+[sift-2] [INFO] [1706673557.580373808] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673565.405673872] [sift]: --- 8.443692684173584 seconds ---
+[sift-2] [INFO] [1706673565.408277776] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673565.491345168] [cubepilot]: [SIFT][GPS_2] lat: 10.978270530700684, lon: 106.56558227539062 ___[GPS_1] lat: 10.978267669677734, lon: 106.56561279296875, alt: 200.119 ___[Match] 1.0 ___[Frames] count: 243.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673565.754706192] [sift]: [SIFT] frame: 246
+[sift-2] [INFO] [1706673566.387624304] [sift]: [SIFT] len des1: 11703
+[sift-2] [INFO] [1706673566.390326704] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673573.379966416] [sift]: --- 7.622169494628906 seconds ---
+[sift-2] [INFO] [1706673573.382452848] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673573.488409648] [cubepilot]: [SIFT][GPS_2] lat: 10.978313446044922, lon: 106.56565856933594 ___[GPS_1] lat: 10.978320121765137, lon: 106.56571960449219, alt: 200.164 ___[Match] 1.0 ___[Frames] count: 246.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673573.705846480] [sift]: [SIFT] frame: 249
+[sift-2] [INFO] [1706673574.351151344] [sift]: [SIFT] len des1: 11653
+[sift-2] [INFO] [1706673574.353679664] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673581.984620496] [sift]: --- 8.275513410568237 seconds ---
+[sift-2] [INFO] [1706673581.988390800] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673582.092878672] [cubepilot]: [SIFT][GPS_2] lat: 10.978384971618652, lon: 106.56575775146484 ___[GPS_1] lat: 10.978365898132324, lon: 106.5658187866211, alt: 200.048 ___[Match] 1.0 ___[Frames] count: 249.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673582.312760240] [sift]: [SIFT] frame: 252
+[sift-2] [INFO] [1706673582.947587472] [sift]: [SIFT] len des1: 11265
+[sift-2] [INFO] [1706673582.953414736] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673589.726366992] [sift]: --- 7.410614490509033 seconds ---
+[sift-2] [INFO] [1706673589.729012304] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673589.789452944] [cubepilot]: [SIFT][GPS_2] lat: 10.97844409942627, lon: 106.56586456298828 ___[GPS_1] lat: 10.97841739654541, lon: 106.56592559814453, alt: 199.861 ___[Match] 1.0 ___[Frames] count: 252.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673590.051947056] [sift]: [SIFT] frame: 255
+[sift-2] [INFO] [1706673590.825619376] [sift]: [SIFT] len des1: 11475
+[sift-2] [INFO] [1706673590.830860016] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673597.904805360] [sift]: --- 7.8498215675354 seconds ---
+[sift-2] [INFO] [1706673597.909462608] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673597.992088912] [cubepilot]: [SIFT][GPS_2] lat: 10.978496551513672, lon: 106.56591033935547 ___[GPS_1] lat: 10.978500366210938, lon: 106.56588745117188, alt: 199.963 ___[Match] 1.0 ___[Frames] count: 255.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673598.239349296] [sift]: [SIFT] frame: 258
+[sift-2] [INFO] [1706673598.847746832] [sift]: [SIFT] len des1: 11700
+[sift-2] [INFO] [1706673598.852589872] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673606.177875536] [sift]: --- 7.933341979980469 seconds ---
+[sift-2] [INFO] [1706673606.180561360] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673606.289817872] [cubepilot]: [SIFT][GPS_2] lat: 10.978570938110352, lon: 106.56585693359375 ___[GPS_1] lat: 10.978596687316895, lon: 106.56583404541016, alt: 200.038 ___[Match] 1.0 ___[Frames] count: 258.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673606.529844848] [sift]: [SIFT] frame: 261
+[sift-2] [INFO] [1706673607.233040176] [sift]: [SIFT] len des1: 11702
+[sift-2] [INFO] [1706673607.237305616] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673614.937527472] [sift]: --- 8.402748107910156 seconds ---
+[sift-2] [INFO] [1706673614.940087632] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673614.994077008] [cubepilot]: [SIFT][GPS_2] lat: 10.978660583496094, lon: 106.56578063964844 ___[GPS_1] lat: 10.978689193725586, lon: 106.56578063964844, alt: 200.042 ___[Match] 1.0 ___[Frames] count: 261.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673615.333983184] [sift]: [SIFT] frame: 264
+[sift-2] [INFO] [1706673615.992387376] [sift]: [SIFT] len des1: 11671
+[sift-2] [INFO] [1706673615.994902480] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673623.470630800] [sift]: --- 8.132007122039795 seconds ---
+[sift-2] [INFO] [1706673623.473217008] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673623.489006800] [cubepilot]: [SIFT][GPS_2] lat: 10.978736877441406, lon: 106.56571960449219 ___[GPS_1] lat: 10.978721618652344, lon: 106.56580352783203, alt: 200.098 ___[Match] 1.0 ___[Frames] count: 264.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673623.818489200] [sift]: [SIFT] frame: 267
+[sift-2] [INFO] [1706673624.450043376] [sift]: [SIFT] len des1: 12201
+[sift-2] [INFO] [1706673624.452728208] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673632.174895472] [sift]: --- 8.351386785507202 seconds ---
+[sift-2] [INFO] [1706673632.177442512] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673632.293645136] [cubepilot]: [SIFT][GPS_2] lat: 10.978771209716797, lon: 106.56575012207031 ___[GPS_1] lat: 10.978752136230469, lon: 106.56591033935547, alt: 199.963 ___[Match] 1.0 ___[Frames] count: 267.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673632.516256528] [sift]: [SIFT] frame: 270
+[sift-2] [INFO] [1706673633.120439376] [sift]: [SIFT] len des1: 12046
+[sift-2] [INFO] [1706673633.122811280] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673642.033928368] [sift]: --- 9.51444149017334 seconds ---
+[sift-2] [INFO] [1706673642.042740880] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673642.090180784] [cubepilot]: [SIFT][GPS_2] lat: 10.978787422180176, lon: 106.56584930419922 ___[GPS_1] lat: 10.978780746459961, lon: 106.56602478027344, alt: 199.962 ___[Match] 1.0 ___[Frames] count: 270.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673642.377507632] [sift]: [SIFT] frame: 273
+[sift-2] [INFO] [1706673643.141358000] [sift]: [SIFT] len des1: 11978
+[sift-2] [INFO] [1706673643.144105232] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673651.034357712] [sift]: --- 8.653835535049438 seconds ---
+[sift-2] [INFO] [1706673651.036941776] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673651.089639120] [cubepilot]: [SIFT][GPS_2] lat: 10.978811264038086, lon: 106.56597900390625 ___[GPS_1] lat: 10.978815078735352, lon: 106.56614685058594, alt: 200.102 ___[Match] 1.0 ___[Frames] count: 273.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673651.372111312] [sift]: [SIFT] frame: 276
+[sift-2] [INFO] [1706673652.054678320] [sift]: [SIFT] len des1: 11663
+[sift-2] [INFO] [1706673652.059294768] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673659.822035056] [sift]: --- 8.446055173873901 seconds ---
+[sift-2] [INFO] [1706673659.826204560] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673659.890148752] [cubepilot]: [SIFT][GPS_2] lat: 10.978849411010742, lon: 106.56611633300781 ___[GPS_1] lat: 10.97884464263916, lon: 106.56626892089844, alt: 200.071 ___[Match] 1.0 ___[Frames] count: 276.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673660.163713808] [sift]: [SIFT] frame: 279
+[sift-2] [INFO] [1706673660.840263024] [sift]: [SIFT] len des1: 12103
+[sift-2] [INFO] [1706673660.842755056] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673669.010268304] [sift]: --- 8.843561172485352 seconds ---
+[sift-2] [INFO] [1706673669.012928528] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673669.091519152] [cubepilot]: [SIFT][GPS_2] lat: 10.978875160217285, lon: 106.56622314453125 ___[GPS_1] lat: 10.978877067565918, lon: 106.56637573242188, alt: 200.131 ___[Match] 1.0 ___[Frames] count: 279.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673669.347975888] [sift]: [SIFT] frame: 282
+[sift-2] [INFO] [1706673669.995301584] [sift]: [SIFT] len des1: 12315
+[sift-2] [INFO] [1706673669.997859152] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673679.073483376] [sift]: --- 9.722270727157593 seconds ---
+[sift-2] [INFO] [1706673679.076187760] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673679.089900752] [cubepilot]: [SIFT][GPS_2] lat: 10.978896141052246, lon: 106.56632232666016 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 188.196 ___[Match] 1.0 ___[Frames] count: 282.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673679.445757520] [sift]: [SIFT] frame: 285
+[sift-2] [INFO] [1706673680.081964560] [sift]: [SIFT] len des1: 11950
+[sift-2] [INFO] [1706673680.085762672] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673688.308078064] [sift]: --- 8.859217166900635 seconds ---
+[sift-2] [INFO] [1706673688.310737776] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673688.391513520] [cubepilot]: [SIFT][GPS_2] lat: 10.978904724121094, lon: 106.56637573242188 ___[GPS_1] lat: 10.978899002075195, lon: 106.56645202636719, alt: 174.397 ___[Match] 1.0 ___[Frames] count: 285.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673688.654404976] [sift]: [SIFT] frame: 288
+[sift-2] [INFO] [1706673689.288753904] [sift]: [SIFT] len des1: 11523
+[sift-2] [INFO] [1706673689.291367408] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673698.227927440] [sift]: --- 9.56966519355774 seconds ---
+[sift-2] [INFO] [1706673698.230572816] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673698.290044944] [cubepilot]: [SIFT][GPS_2] lat: 10.978903770446777, lon: 106.5663833618164 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 159.352 ___[Match] 1.0 ___[Frames] count: 288.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673698.572692944] [sift]: [SIFT] frame: 291
+[sift-2] [INFO] [1706673699.202309712] [sift]: [SIFT] len des1: 11908
+[sift-2] [INFO] [1706673699.204931984] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673706.798729200] [sift]: --- 8.22118854522705 seconds ---
+[sift-2] [INFO] [1706673706.801306224] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673706.892955120] [cubepilot]: [SIFT][GPS_2] lat: 10.978904724121094, lon: 106.56639099121094 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 146.521 ___[Match] 1.0 ___[Frames] count: 291.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673707.130032944] [sift]: [SIFT] frame: 294
+[sift-2] [INFO] [1706673707.749107408] [sift]: [SIFT] len des1: 11917
+[sift-2] [INFO] [1706673707.751564048] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673714.157563504] [sift]: --- 7.024601459503174 seconds ---
+[sift-2] [INFO] [1706673714.160166800] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673714.189717104] [cubepilot]: [SIFT][GPS_2] lat: 10.978906631469727, lon: 106.56639099121094 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 135.564 ___[Match] 1.0 ___[Frames] count: 294.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673714.504928016] [sift]: [SIFT] frame: 297
+[sift-2] [INFO] [1706673715.148110896] [sift]: [SIFT] len des1: 11867
+[sift-2] [INFO] [1706673715.151132112] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673721.513778000] [sift]: --- 7.0053651332855225 seconds ---
+[sift-2] [INFO] [1706673721.516411760] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673721.589649712] [cubepilot]: [SIFT][GPS_2] lat: 10.97890853881836, lon: 106.56639862060547 ___[GPS_1] lat: 10.978898048400879, lon: 106.56645202636719, alt: 124.365 ___[Match] 1.0 ___[Frames] count: 297.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673721.853404144] [sift]: [SIFT] frame: 300
+[sift-2] [INFO] [1706673722.503559792] [sift]: [SIFT] len des1: 11564
+[sift-2] [INFO] [1706673722.506121008] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673728.189326192] [sift]: --- 6.332659006118774 seconds ---
+[sift-2] [INFO] [1706673728.191903120] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673728.292443856] [cubepilot]: [SIFT][GPS_2] lat: 10.97890853881836, lon: 106.56639862060547 ___[GPS_1] lat: 10.978893280029297, lon: 106.56645202636719, alt: 114.372 ___[Match] 1.0 ___[Frames] count: 300.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673728.533696784] [sift]: [SIFT] frame: 303
+[sift-2] [INFO] [1706673729.140046000] [sift]: [SIFT] len des1: 11319
+[sift-2] [INFO] [1706673729.142727344] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673733.678058256] [sift]: --- 5.1413140296936035 seconds ---
+[sift-2] [INFO] [1706673733.680589040] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673733.795268496] [cubepilot]: [SIFT][GPS_2] lat: 10.978906631469727, lon: 106.56639862060547 ___[GPS_1] lat: 10.978893280029297, lon: 106.56645202636719, alt: 106.032 ___[Match] 1.0 ___[Frames] count: 303.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673734.019947280] [sift]: [SIFT] frame: 306
+[sift-2] [INFO] [1706673734.654634576] [sift]: [SIFT] len des1: 11225
+[sift-2] [INFO] [1706673734.657391536] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673739.101427152] [sift]: --- 5.077996730804443 seconds ---
+[sift-2] [INFO] [1706673739.104038768] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673739.194639376] [cubepilot]: [SIFT][GPS_2] lat: 10.978906631469727, lon: 106.56639862060547 ___[GPS_1] lat: 10.97889518737793, lon: 106.56645202636719, alt: 98.024 ___[Match] 1.0 ___[Frames] count: 306.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673739.447002736] [sift]: [SIFT] frame: 309
+[sift-2] [INFO] [1706673740.037804560] [sift]: [SIFT] len des1: 10965
+[sift-2] [INFO] [1706673740.040473200] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673743.563218736] [sift]: --- 4.113025188446045 seconds ---
+[sift-2] [INFO] [1706673743.565776816] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673743.592911408] [cubepilot]: [SIFT][GPS_2] lat: 10.97890567779541, lon: 106.56640625 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 91.633 ___[Match] 1.0 ___[Frames] count: 309.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673743.888992112] [sift]: [SIFT] frame: 312
+[sift-2] [INFO] [1706673744.472514416] [sift]: [SIFT] len des1: 11730
+[sift-2] [INFO] [1706673744.475348080] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673748.508805744] [sift]: --- 4.616812229156494 seconds ---
+[sift-2] [INFO] [1706673748.511333104] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673748.594907792] [cubepilot]: [SIFT][GPS_2] lat: 10.978907585144043, lon: 106.56640625 ___[GPS_1] lat: 10.978893280029297, lon: 106.56645202636719, alt: 84.13 ___[Match] 1.0 ___[Frames] count: 312.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673748.829371536] [sift]: [SIFT] frame: 315
+[sift-2] [INFO] [1706673749.442910960] [sift]: [SIFT] len des1: 11710
+[sift-2] [INFO] [1706673749.448051824] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673752.350000560] [sift]: --- 3.517707109451294 seconds ---
+[sift-2] [INFO] [1706673752.352798032] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673752.392877360] [cubepilot]: [SIFT][GPS_2] lat: 10.978899002075195, lon: 106.56639099121094 ___[GPS_1] lat: 10.978894233703613, lon: 106.56645202636719, alt: 78.144 ___[Match] 1.0 ___[Frames] count: 315.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673752.681530544] [sift]: [SIFT] frame: 318
+[sift-2] [INFO] [1706673753.272435216] [sift]: [SIFT] len des1: 11418
+[sift-2] [INFO] [1706673753.276873936] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673755.681961872] [sift]: --- 2.993861675262451 seconds ---
+[sift-2] [INFO] [1706673755.684658672] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706673755.792211920] [cubepilot]: [SIFT][GPS_2] lat: 10.979647636413574, lon: 106.56359100341797 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 73.115 ___[Match] 1.0 ___[Frames] count: 318.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706673756.003316528] [sift]: [SIFT] frame: 321
+[sift-2] [INFO] [1706673756.602293584] [sift]: [SIFT] len des1: 11732
+[sift-2] [INFO] [1706673756.605584528] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673773.086456144] [sift]: --- 17.080207347869873 seconds ---
+[sift-2] [INFO] [1706673773.090968816] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673773.189993616] [cubepilot]: [SIFT][GPS_2] lat: 10.979534149169922, lon: 106.56468200683594 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 47.014 ___[Match] 1.0 ___[Frames] count: 321.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673773.413750096] [sift]: [SIFT] frame: 324
+[sift-2] [INFO] [1706673774.128316208] [sift]: [SIFT] len des1: 12057
+[sift-2] [INFO] [1706673774.130825968] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673780.617223440] [sift]: --- 7.200385093688965 seconds ---
+[sift-2] [INFO] [1706673780.619824784] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706673780.693097872] [cubepilot]: [SIFT][GPS_2] lat: 10.97923469543457, lon: 106.57050323486328 ___[GPS_1] lat: 10.978893280029297, lon: 106.56645202636719, alt: 35.764 ___[Match] 1.0 ___[Frames] count: 324.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706673780.938915920] [sift]: [SIFT] frame: 327
+[sift-2] [INFO] [1706673781.702480816] [sift]: [SIFT] len des1: 12401
+[sift-2] [INFO] [1706673781.710655184] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673798.051833808] [sift]: --- 17.107903718948364 seconds ---
+[sift-2] [INFO] [1706673798.054771472] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673798.094240560] [cubepilot]: [SIFT][GPS_2] lat: 10.98003101348877, lon: 106.56978607177734 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 10.395 ___[Match] 1.0 ___[Frames] count: 327.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673798.355066704] [sift]: [SIFT] frame: 330
+[sift-2] [INFO] [1706673798.953971056] [sift]: [SIFT] len des1: 9781
+[sift-2] [INFO] [1706673798.956477424] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673799.677346800] [sift]: --- 1.319380521774292 seconds ---
+[sift-2] [INFO] [1706673799.679873168] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706673799.789071280] [cubepilot]: [SIFT][GPS_2] lat: 10.982624053955078, lon: 106.56477355957031 ___[GPS_1] lat: 10.978894233703613, lon: 106.56645202636719, alt: 9.513 ___[Match] 1.0 ___[Frames] count: 330.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706673799.989600496] [sift]: [SIFT] frame: 333
+[sift-2] [INFO] [1706673800.643505840] [sift]: [SIFT] len des1: 10562
+[sift-2] [INFO] [1706673800.646007568] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673815.264975088] [sift]: --- 15.272251844406128 seconds ---
+[sift-2] [INFO] [1706673815.267683664] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673815.291312624] [cubepilot]: [SIFT][GPS_2] lat: 10.982223510742188, lon: 106.5667495727539 ___[GPS_1] lat: 10.978896141052246, lon: 106.56645202636719, alt: 2.171 ___[Match] 1.0 ___[Frames] count: 333.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673815.575856560] [sift]: [SIFT] frame: 336
+[sift-2] [INFO] [1706673816.088618864] [sift]: [SIFT] len des1: 5676
+[sift-2] [INFO] [1706673816.091141456] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673818.077568272] [sift]: --- 2.4987854957580566 seconds ---
+[sift-2] [INFO] [1706673818.080109168] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706673818.188703088] [cubepilot]: [SIFT][GPS_2] lat: 10.982915878295898, lon: 106.5652084350586 ___[GPS_1] lat: 10.97889518737793, lon: 106.56645202636719, alt: 2.044 ___[Match] 1.0 ___[Frames] count: 336.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706673818.412826800] [sift]: [SIFT] frame: 339
+[sift-2] [INFO] [1706673819.038910864] [sift]: [SIFT] len des1: 10685
+[sift-2] [INFO] [1706673819.041446192] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673833.252822352] [sift]: --- 14.836937189102173 seconds ---
+[sift-2] [INFO] [1706673833.255451312] [sift]: Golbal search: False
+[cubepilot-1] [INFO] [1706673833.292330736] [cubepilot]: [SIFT][GPS_2] lat: 10.958165168762207, lon: 106.57376098632812 ___[GPS_1] lat: 10.97889518737793, lon: 106.56645202636719, alt: 1.874 ___[Match] 1.0 ___[Frames] count: 339.0 ___[global_search] value: 0.0
+[sift-2] [INFO] [1706673833.578798160] [sift]: [SIFT] frame: 342
+[sift-2] [INFO] [1706673834.229758544] [sift]: [SIFT] len des1: 12322
+[sift-2] [INFO] [1706673834.232256976] [sift]: [SIFT] len des1[0]: 128
+[sift-2] [INFO] [1706673849.872670544] [sift]: --- 16.290737867355347 seconds ---
+[sift-2] [INFO] [1706673849.875265488] [sift]: Golbal search: True
+[cubepilot-1] [INFO] [1706673849.890482480] [cubepilot]: [SIFT][GPS_2] lat: 10.966121673583984, lon: 106.56908416748047 ___[GPS_1] lat: 10.97889518737793, lon: 106.56645202636719, alt: 1.858 ___[Match] 1.0 ___[Frames] count: 342.0 ___[global_search] value: 1.0
+[sift-2] [INFO] [1706673850.193775760] [sift]: [SIFT] frame: 345
+[sift-2] [INFO] [1706673850.832650288] [sift]: [SIFT] len des1: 11139
+[sift-2] [INFO] [1706673850.835174704] [sift]: [SIFT] len des1[0]: 128
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
