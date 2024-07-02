@@ -3,6 +3,7 @@
 #include <HardwareSerial.h>
 #include <NTPClient.h>
 #include <PZEM004Tv30.h>
+#include <UUID.h>
 #include <WebServer.h>
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
@@ -23,42 +24,47 @@ const char *ssid     = "ESP-32";
 const char *password = "esp32tama";
 const char *ggsheet =
     "https://script.google.com/macros/s/"
-    "AKfycbzC4I0AX1X8MdgKUmoYvAK2OlrEaLvrcZyffcKkSAqFlHgb2SuQ872SC3_L95bt6y23/"
+    "AKfycbyQWoQK_i1k4Mfx_vy-KYGwLxmJK9FIXuke5Jt6VJrfUQYpco39sqf_OVTHG8EcUgTY/"
     "exec";
 
 // global value
-String global_status                  = "UNDEFINED";
-String global_newStatus               = "UNDEFINED";
-float global_current                  = 0.00;
-unsigned long last_status_change_time = 0;
-String DateTimeEndStatus              = "";
-
-String global_previousStatus = "null";
-float global_updatetime;
-String globalWifiScanResult;
-SemaphoreHandle_t wifiScanSemaphore;
-// float global_current;
+String global_status PROGMEM                  = "UNDEFINED";
+String global_oldStatus PROGMEM               = "UNDEFINED";
+float global_current PROGMEM                  = 0.00;
+unsigned long last_status_change_time PROGMEM = 0;
+String DateTimeEndStatus PROGMEM              = "";
+String global_previousStatus PROGMEM          = "null";
+float global_updatetime PROGMEM;
+String globalWifiScanResult PROGMEM;
+SemaphoreHandle_t wifiScanSemaphore PROGMEM;
+// bool global_check_current_average PROGMEM = false;
+float global_cal_sum_current PROGMEM   = 0;
+int global_total_current_count PROGMEM = 1;
+float global_average_current PROGMEM   = 0;
 
 // timer calculate duration on/off
-long global_durationTime_sec;
-long global_afterTime01;
-long global_afterTime02;
-long global_elapsedTime;
-long statusChangeTime;
+long global_durationTime_sec PROGMEM;
+long global_afterTime01 PROGMEM;
+long global_afterTime02 PROGMEM;
+long global_elapsedTime PROGMEM;
 
 // millis wifi connect
-long global_start_wifi;
-bool global_status_wifi;
+long global_start_wifi PROGMEM;
+bool global_status_wifi PROGMEM;
 // set realtime
 WiFiUDP ntpUDP;
-const long utcOffsetInSeconds =
-    25200;  // 7 hours * 3600 seconds/hour, set time zone GMT+7
-NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds,
-                     60000);  // get GMT +7
+
+// uuid
+UUIDGenerator uuidGen;
+String uuid PROGMEM           = uuidGen.generateUUIDv4();
+String uuid_now PROGMEM       = "";
+const long utcOffsetInSeconds = 25200;                                    // 7 hours * 3600 seconds/hour, set time zone GMT+7
+NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds, 60000);  // get GMT +7
 NetworkConfig networkConfig;
 WebServer server(networkConfig.getPort());
 
 DynamicJsonDocument jsonDoc(1024);
+
 String mergeHTML_CSS(String title, String bodyContent, String cssContent) {
     String mergeContent = R"=====(
     <!DOCTYPE html>
@@ -99,9 +105,9 @@ String calcTimerMillis(long millis) {
     // Tính toán số giờ, phút và giây
     long seconds = millis / 1000;   // Chuyển đổi milliseconds thành giây
     int hours    = seconds / 3600;  // Tính số giờ
-    seconds %= 3600;  // Còn lại số giây sau khi trừ số giờ
-    int minutes = seconds / 60;  // Tính số phút
-    seconds %= 60;  // Còn lại số giây sau khi trừ số phút
+    seconds %= 3600;                // Còn lại số giây sau khi trừ số giờ
+    int minutes = seconds / 60;     // Tính số phút
+    seconds %= 60;                  // Còn lại số giây sau khi trừ số phút
 
     // Định dạng chuỗi thời gian
     char formattedTime[9];
@@ -124,23 +130,48 @@ String getTimeString() {
         int second = ptm->tm_sec;
 
         char formattedDateTime[20];
-        sprintf(formattedDateTime, "%02d/%02d/%04d %02d:%02d:%02d", day, month,
+        sprintf(formattedDateTime, "%02d/%02d/%04d %02d:%02d:%02d", month, day,
                 year, hour, minute, second);
 
         return String(formattedDateTime);
     }
     return "null";
 }
-void handleGoogleSheet(String status, String dateTime, unsigned long duration) {
+String getTimeString(long millis) {
+    if (global_status_wifi) {
+        timeClient.update();
+        time_t epochTime = timeClient.getEpochTime();
+        // Chuyển đổi adjustedTime thành struct tm
+        epochTime -= millis / 1000;
+        struct tm *ptm = gmtime((time_t *)&epochTime);
+
+        int day    = ptm->tm_mday;
+        int month  = ptm->tm_mon + 1;
+        int year   = ptm->tm_year + 1900;
+        int hour   = ptm->tm_hour;
+        int minute = ptm->tm_min;
+        int second = ptm->tm_sec;
+
+        char formattedDateTime[20];
+        sprintf(formattedDateTime, "%02d/%02d/%04d %02d:%02d:%02d", month, day,
+                year, hour, minute, second);
+
+        return String(formattedDateTime);
+    }
+    return "null";
+}
+int handleGoogleSheet(String status, String dateTimeStart, String dateTimeEnd, unsigned long duration, String MachineID, float averageCurrent, String uuid) {
     Serial.println("start void handleGoogleSheet");
     if (WiFi.status() == WL_CONNECTED) {
         HTTPClient http;
         http.begin(ggsheet);
         http.addHeader("Content-Type", "application/json");
         // Serial.println(global_elapsedTime);
-        String jsonPayload = "{\"dateTime\":\"" + dateTime + "\",\"value\":\"" +
-                             status + "\",\"duration\":\"" +
-                             calcTimerMillis(duration) + "\"}";
+        String jsonPayload =
+            "{\"dateTimeStart\":\"" + dateTimeStart + "\",\"dateTimeEnd\":\"" +
+            dateTimeEnd + "\",\"value\":\"" + status + "\",\"duration\":\"" +
+            calcTimerMillis(duration) + "\",\"machineID\":\"" + MachineID +
+            "\",\"averageCurrent\": \"" + averageCurrent + "\",\"uuid\": \"" + uuid + "\"}";
         int httpResponseCode = http.POST(jsonPayload);
         Serial.println(jsonPayload);
         if (httpResponseCode > 0) {
@@ -151,7 +182,11 @@ void handleGoogleSheet(String status, String dateTime, unsigned long duration) {
             Serial.println(httpResponseCode);
         }
         http.end();
+        return httpResponseCode;
+        Serial.print("code: ");
+        Serial.println(httpResponseCode);
     }
+    return 9999;
 }
 void startPage() {
     String htmlContent = HTML_CONTENT;
@@ -203,8 +238,7 @@ void scanPageTask(void *pvParameters) {
     vTaskDelete(NULL);
 }
 void scanPage() {
-    xTaskCreatePinnedToCore(scanPageTask, "scanPageTask", 4096, NULL, 1, NULL,
-                            SUBCORE);
+    xTaskCreatePinnedToCore(scanPageTask, "scanPageTask", 2048, NULL, 1, NULL, SUBCORE);
     if (xSemaphoreTake(wifiScanSemaphore, portMAX_DELAY) == pdTRUE) {
         server.send(200, "application/json", globalWifiScanResult);
     }
@@ -274,43 +308,21 @@ void handleConnect() {
                         "\"}";
     server.send(200, "application/json", jsonString);
 }
-// void getPzemSensor()
-// {
-//      float current = pzem.current();
-//      global_current = current;
-//      String machineStatus = "null";
-//      if (current > 0.02)
-//      {
-//           machineStatus = "on";
-//      }
-//      else
-//      {
-//           machineStatus = "off";
-//      }
-//      if (global_status != machineStatus)
-//      {
-//           statusChangeTime = millis();
-//      }
-//      // global_elapsedTime = millis() - statusChangeTime;
-//      // Serial.print("global_elapsedTime : ");
-//      // Serial.println(global_elapsedTime);
-//      global_status = machineStatus;
-//      if (global_previousStatus == "null")
-//      {
-//           global_previousStatus = machineStatus;
-//      }
-// }
 struct pzem_data {
     float current;
     String machineSatus;
 };
 struct DataSendToGGSheet {
+    unsigned long duration;
+    float averageCurrent;
     String status;
     String dateTimeEnd;
-    unsigned long duration;
+    String dateTimeStart;
+    String MachineID;
+    String uuid;
 };
-DataSendToGGSheet currentStatusData;
-DataSendToGGSheet DataSendToGGSheetQueue[1000];  // create queue 1000 position
+DataSendToGGSheet currentStatusData PROGMEM;
+DataSendToGGSheet DataSendToGGSheetQueue[2] PROGMEM;
 int current_index = 0;
 void DataSendToGGSheetAddToQueue(DataSendToGGSheet Data) {
     DataSendToGGSheetQueue[current_index] = Data;
@@ -319,14 +331,17 @@ void DataSendToGGSheetAddToQueue(DataSendToGGSheet Data) {
 pzem_data pzemSensor() {
     pzem_data data;
     data.current = pzem.current();
-    if (data.current > 1.02) {
-        data.machineSatus = "ON";
-    } else if (data.current < 1.02 & data.current > 0.1) {
+    if (data.current > 4.5) {
+        data.machineSatus = "L2";
+    } else if (data.current <= 4.5 && data.current > 2.5) {
+        data.machineSatus = "L1";
+    } else if (data.current <= 2.5 && data.current > 0.5) {
         data.machineSatus = "STAND BY";
-    } else if (data.current <= 0.1 & data.current >= 0) {
+    } else if (data.current <= 0.5 && data.current >= -1) {
         data.machineSatus = "OFF";
     } else {
         data.machineSatus = "UNDEFINED";
+        data.current      = 0;
     }
 
     return data;
@@ -406,45 +421,32 @@ void getNowDateTime() {
 }
 void readPZEMTask(void *pvParameters) {
     while (1) {
-        global_current = pzem.current();
-        if (global_current > 1.02) {
-            global_status = "ON";
-        } else if (global_current < 1.02 & global_current > 0.1) {
-            global_status = "STAND BY";
-        } else if (global_current <= 0.1 & global_current >= 0) {
-            global_status = "OFF";
-        } else {
-            global_status = "UNDEFINED";
-        }
-        if (global_newStatus != global_status) {
-            DateTimeEndStatus = getTimeString();
-            // Serial.print("status: ");
-            // Serial.println(global_newStatus);
-            currentStatusData.status = global_newStatus;
-            // Serial.println(DateTimeEndStatus);
-            currentStatusData.dateTimeEnd = DateTimeEndStatus;
-            global_newStatus              = global_status;
-            last_status_change_time       = millis();
-            global_durationTime_sec =
-                last_status_change_time - global_afterTime02;
-            global_afterTime02 = last_status_change_time;
-            // Serial.print("duration : ");
-            // Serial.println(global_durationTime_sec);
-            currentStatusData.duration = global_durationTime_sec;
+        pzem_data pzem1 = pzemSensor();
+        global_current  = pzem1.current;
+        global_status   = pzem1.machineSatus;
+        global_cal_sum_current += pzem1.current;
+        global_total_current_count++;
+        global_average_current = global_cal_sum_current / global_total_current_count;
+        if (global_oldStatus != global_status) {
+            if (global_status == "STAND BY") {
+                uuid = uuidGen.generateUUIDv4();
+            }
+            DateTimeEndStatus                = getTimeString();
+            currentStatusData.status         = global_oldStatus;
+            currentStatusData.dateTimeEnd    = DateTimeEndStatus;
+            global_oldStatus                 = global_status;
+            last_status_change_time          = millis();
+            global_durationTime_sec          = last_status_change_time - global_afterTime02;
+            global_afterTime02               = last_status_change_time;
+            currentStatusData.duration       = global_durationTime_sec;
+            currentStatusData.dateTimeStart  = getTimeString(global_durationTime_sec);
+            currentStatusData.averageCurrent = global_average_current;
+            currentStatusData.MachineID      = "T300-15";
+            currentStatusData.uuid           = uuid;
+            global_average_current           = 0;
+            global_cal_sum_current           = 0;
+            global_total_current_count       = 0;
             DataSendToGGSheetAddToQueue(currentStatusData);
-            // Serial.println("\t\t LIST STATUS QUEUE");
-            // Serial.println("------------------------");
-            // for (int i = 0; i < current_index; i++) {
-            //     if (DataSendToGGSheetQueue[i].status != "") {
-            //         Serial.print("Status: ");
-            //         Serial.println(DataSendToGGSheetQueue[i].status);
-            //         Serial.print("DateTimeEnd: ");
-            //         Serial.println(DataSendToGGSheetQueue[i].dateTimeEnd);
-            //         Serial.print("Duration: ");
-            //         Serial.println(DataSendToGGSheetQueue[i].duration);
-            //         Serial.println("........................");
-            //     }
-            // }
         }
 
         vTaskDelay(1000 / portTICK_PERIOD_MS);
@@ -460,17 +462,27 @@ void removeElement(DataSendToGGSheet arr[], int &size, int index) {
     }
     size--;
 }
-void SendDataToGGSheetTask(void *pvParameters) {
-    Serial.println("start void send");
-    while (current_index < 1) {
-        for (int i = 1; i < current_index; i++) {
-            handleGoogleSheet(DataSendToGGSheetQueue[i].status,
-                              DataSendToGGSheetQueue[i].dateTimeEnd,
-                              DataSendToGGSheetQueue[i].duration);
+void sendRealtimeRawData(String code, String dateTimeStart, float current, String MachineID, String uuid) {
+    if (WiFi.status() == WL_CONNECTED) {
+        HTTPClient http;
+        http.begin(ggsheet);
+        http.addHeader("Content-Type", "application/json");
+        // Serial.println(global_elapsedTime);
+        String jsonPayload =
+            "{\"dateTimeStart\":\"" + dateTimeStart + "\",\"code\":\"" +
+            code + "\",\"machineID\":\"" + MachineID +
+            "\",\"current\": \"" + current + "\",\"uuid\": \"" + uuid + "\"}";
+        int httpResponseCode = http.POST(jsonPayload);
+        Serial.println(jsonPayload);
+        if (httpResponseCode > 0) {
+            String response = http.getString();
+            Serial.println("post google sheet ok!");
+        } else {
+            Serial.print("Error on sending POST: ");
+            Serial.println(httpResponseCode);
         }
-        // vTaskDelay(2000 / portTICK_PERIOD_MS);
+        http.end();
     }
-    vTaskDelete(NULL);
 }
 void setup() {
     Serial.begin(115200);
@@ -483,8 +495,7 @@ void setup() {
     Serial.print("SoftAP IP address: ");
     Serial.println(WiFi.softAPIP());
     wifiScanSemaphore = xSemaphoreCreateBinary();
-    xTaskCreatePinnedToCore(init_esp_mode_and_wifi, "init_esp_mode_and_wifi",
-                            4096, NULL, 2, NULL, MAINCORE);
+    xTaskCreatePinnedToCore(init_esp_mode_and_wifi, "init_esp_mode_and_wifi", 2048, NULL, 2, NULL, MAINCORE);
     // Bắt đầu máy chủ
     server.on("/", HTTP_GET, startPage);
     server.on("/scan", HTTP_GET, scanPage);
@@ -496,6 +507,7 @@ void setup() {
     server.begin();
     Serial.println("HTTP server started");
     global_afterTime02 = millis();
+    // global_check_current_average = true;
     Serial.print("setup is running core: ");
     Serial.println(xPortGetCoreID());
     xTaskCreatePinnedToCore(serverTask,    // Hàm task
@@ -509,27 +521,19 @@ void setup() {
     // xTaskCreatePinnedToCore(testRTOSTask, "Test task", 1028, NULL, 1,
     // NULL,
     //                         MAINCORE);
-    xTaskCreatePinnedToCore(readPZEMTask, "ReadPZEMTask", 4096, NULL, 1, NULL,
-                            MAINCORE);
+    xTaskCreatePinnedToCore(readPZEMTask, "ReadPZEMTask", 19200, NULL, 1, NULL, MAINCORE);
 }
 // the loop function runs over and over again forever
 void loop() {
-    // server.handleClient();
-    // global_afterTime01 = millis();
-    // if (global_previousStatus != global_status)
-    // {
-    //      global_durationTime_sec = global_afterTime01 -
-    //      global_afterTime02;
-    // handleGoogleSheet();
-    // global_previousStatus = global_status;
-    // global_afterTime02    = global_afterTime01;
-    // }
     while (current_index > 1) {
-        handleGoogleSheet(DataSendToGGSheetQueue[1].status,
-                          DataSendToGGSheetQueue[1].dateTimeEnd,
-                          DataSendToGGSheetQueue[1].duration);
-        removeElement(DataSendToGGSheetQueue, current_index, 1);
+        for (int i; i <= sizeof(DataSendToGGSheetQueue); i++) {
+            Serial.println(DataSendToGGSheetQueue[1].status);
+        }
+        if (handleGoogleSheet(DataSendToGGSheetQueue[1].status, DataSendToGGSheetQueue[1].dateTimeStart, DataSendToGGSheetQueue[1].dateTimeEnd, DataSendToGGSheetQueue[1].duration,
+                              DataSendToGGSheetQueue[1].MachineID, DataSendToGGSheetQueue[1].averageCurrent, uuid_now) < 400) {
+            removeElement(DataSendToGGSheetQueue, current_index, 1);
+        }
     }
-
+    sendRealtimeRawData("realtime", getTimeString(), global_current, "T300-15", "--");
     delay(100);
 }

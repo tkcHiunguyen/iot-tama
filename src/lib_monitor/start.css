@@ -6,13 +6,6 @@ body {
   user-select: none; /* Ngăn chọn văn bản */
 }
 
-.border-red {
-  border: 10px solid rgb(0, 255, 136);
-}
-.border-yellow {
-  border: 10px solid yellow;
-}
-
 button {
   display: inline-block;
   padding: 15px 25px;
@@ -95,6 +88,13 @@ button:active {
   font-weight: bold;
   cursor: pointer;
   color: white;
+}
+
+.border-red {
+  border: 10px solid rgb(0, 255, 136);
+}
+.border-yellow {
+  border: 10px solid yellow;
 }
 
 .title {
@@ -375,4 +375,18 @@ div:focus {
 }
 .fncBtn .cancel {
   background-color: rgb(214, 114, 56);
+}
+.datetime-display {
+  text-align: center;
+  border: 5px solid burlywood;
+  font-family: math;
+  padding: 10px;
+}
+
+#time {
+  font-weight: 400;
+  display: block;
+  font-size: 30px;
+  margin: 0 0 5px;
+  letter-spacing: 5px;
 }

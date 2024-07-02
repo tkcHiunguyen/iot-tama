@@ -68,6 +68,7 @@ const char *HTML_CONTENT = R"=====(
           const nameWifi = document.querySelector('.name-wifi');
           const checkStatus = document.getElementById('switch');
           const resetButton = document.getElementById("reset");
+          const statusON = document.querySelector(".status-on");
           checkStatus.disabled= true;
           var connectwifi = "not_connect";
           scanButton.addEventListener("click", () => {
@@ -194,7 +195,8 @@ const char *HTML_CONTENT = R"=====(
                document.querySelector('.number').innerText = data;
           }
           function updateMachineStatus(machineStatus) {
-               checkStatus.checked = machineStatus === "RUNNING";
+              checkStatus.checked = machineStatus != "OFF" || machineStatus != "UNDEFINED";
+              statusON.innerHTML = machineStatus;
           }
           function checkWifiStatus() {
                fetch("/check_wifi_status")

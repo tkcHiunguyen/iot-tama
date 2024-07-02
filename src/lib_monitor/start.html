@@ -76,6 +76,7 @@
           const nameWifi = document.querySelector('.name-wifi');
           const checkStatus = document.getElementById('switch');
           const resetButton = document.getElementById("reset");
+          const statusON = document.querySelector(".status-on");
           checkStatus.disabled = true;
           var connectwifi = "not_connect";
           scanButton.addEventListener("click", () => {
@@ -83,7 +84,7 @@
                fetch('/scan')
                     .then(response => response.json())
                     .then(data => {
-                         console.log(data)
+                         //  console.log(data)
                          const objectData = Object.values(data);
                          while (wifiTable.rows.length > 1) {
                               wifiTable.deleteRow(1);
@@ -202,7 +203,8 @@
                document.querySelector('.number').innerText = data;
           }
           function updateMachineStatus(machineStatus) {
-               checkStatus.checked = machineStatus === "RUNNING";
+               checkStatus.checked = machineStatus != "OFF" || machineStatus != "UNDEFINED";
+               statusON.innerHTML = machineStatus;
           }
           function checkWifiStatus() {
                fetch("/check_wifi_status")
