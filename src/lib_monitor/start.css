@@ -3,7 +3,8 @@ body {
   text-align: center;
   margin-top: 50px;
   display: block;
-  user-select: none; /* Ngăn chọn văn bản */
+  user-select: none;
+  /* Ngăn chọn văn bản */
 }
 
 button {
@@ -33,7 +34,8 @@ button:active {
 }
 
 .number {
-  margin-top: 50px; /* Set the display to inline-block to allow for a specific width and height */
+  margin-top: 50px;
+  /* Set the display to inline-block to allow for a specific width and height */
   display: inline-block;
   width: 100px;
   height: 50px;
@@ -147,21 +149,29 @@ button:active {
   display: none;
   opacity: 0;
   background-color: #616161b2;
-  position: fixed; /* Sử dụng fixed để phủ toàn bộ màn hình */
+  position: fixed;
+  /* Sử dụng fixed để phủ toàn bộ màn hình */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100vw; /* Chiều rộng toàn màn hình */
-  height: 100vh; /* Chiều cao toàn màn hình */
-  flex-direction: column; /* Canh giữa nội dung theo chiều dọc */
-  justify-content: center; /* Canh giữa theo chiều dọc */
-  align-items: center; /* Canh giữa theo chiều ngang */
+  width: 100vw;
+  /* Chiều rộng toàn màn hình */
+  height: 100vh;
+  /* Chiều cao toàn màn hình */
+  flex-direction: column;
+  /* Canh giữa nội dung theo chiều dọc */
+  justify-content: center;
+  /* Canh giữa theo chiều dọc */
+  align-items: center;
+  /* Canh giữa theo chiều ngang */
   z-index: 4;
   transition: opacity 0.5s ease;
 }
+
 .loading-content {
-  margin-bottom: 20px; /* Khoảng cách giữa nội dung và loader */
+  margin-bottom: 20px;
+  /* Khoảng cách giữa nội dung và loader */
   padding: 10px;
   border: solid white 5px;
   border-radius: 10px;
@@ -177,8 +187,10 @@ button:active {
   border-top: 16px solid #3498db;
   width: 120px;
   height: 120px;
-  animation: spin 2s linear infinite; /* Thêm animation cho loader */
+  animation: spin 2s linear infinite;
+  /* Thêm animation cho loader */
 }
+
 /* @keyframes l2 {
   to {
     transform: rotate(1turn);
@@ -194,8 +206,10 @@ button:active {
 }
 
 .showloader {
-  display: flex; /* Chuyển display sang flex để hiện phần tử */
-  opacity: 1; /* Tăng opacity lên 1 */
+  display: flex;
+  /* Chuyển display sang flex để hiện phần tử */
+  opacity: 1;
+  /* Tăng opacity lên 1 */
 }
 
 input[type="checkbox"] {
@@ -229,11 +243,11 @@ label:after {
   transition: 0.3s;
 }
 
-input:checked + label {
+input:checked+label {
   background: #bada55;
 }
 
-input:checked + label:after {
+input:checked+label:after {
   left: calc(100% - 5px);
   transform: translateX(-100%);
 }
@@ -265,9 +279,11 @@ label:active:after {
   border-radius: 15px;
   box-shadow: 0 9px #999;
 }
+
 .status-off {
   background-color: #c74a24;
 }
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -276,24 +292,31 @@ label:active:after {
 div:focus {
   outline: none;
 }
+
 .popup::-webkit-scrollbar {
-  width: 12px; /* Width of the vertical scrollbar */
-  height: 12px; /* Height of the horizontal scrollbar */
+  width: 12px;
+  /* Width of the vertical scrollbar */
+  height: 12px;
+  /* Height of the horizontal scrollbar */
 }
 
 .popup::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Background of the scrollbar track */
+  background: #f1f1f1;
+  /* Background of the scrollbar track */
   border-radius: 10px;
 }
 
 .popup::-webkit-scrollbar-thumb {
-  background: #888; /* Color of the scrollbar thumb */
+  background: #888;
+  /* Color of the scrollbar thumb */
   border-radius: 10px;
-  border: 3px solid #f1f1f1; /* Creates padding around the thumb */
+  border: 3px solid #f1f1f1;
+  /* Creates padding around the thumb */
 }
 
 .popup::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color of the scrollbar thumb on hover */
+  background: #555;
+  /* Color of the scrollbar thumb on hover */
 }
 
 .inputpw {
@@ -370,12 +393,15 @@ div:focus {
   border-radius: 15px;
   cursor: pointer;
 }
+
 .fncBtn .connect {
   background-color: rgb(127, 219, 168);
 }
+
 .fncBtn .cancel {
   background-color: rgb(214, 114, 56);
 }
+
 .datetime-display {
   text-align: center;
   border: 5px solid burlywood;

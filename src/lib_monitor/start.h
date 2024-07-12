@@ -54,185 +54,220 @@ const char *HTML_CONTENT = R"=====(
           <span id="time"></span>
      </div>
      <script>
-          const scanButton = document.getElementById("scan");
-          const scanPopup = document.querySelector(".scanpopup");
-          const closePopup = document.querySelector(".close-popup");
-          const loader = document.querySelector(".loader-screen");
-          const listWifiTable = document.querySelector(".list-wifi");
-          const wifiTable = document.getElementById("wifiTable");
-          const hidepw = document.getElementById("togglePassword");
-          const cancelpw = document.getElementById("cancelButton");
-          const connectpw = document.getElementById("connectButton");
-          const passwordField = document.getElementById('passwordField');
-          const inputpw = document.querySelector('.inputpw');
-          const nameWifi = document.querySelector('.name-wifi');
-          const checkStatus = document.getElementById('switch');
-          const resetButton = document.getElementById("reset");
-          const statusON = document.querySelector(".status-on");
-          checkStatus.disabled= true;
-          var connectwifi = "not_connect";
-          scanButton.addEventListener("click", () => {
-               loader.classList.add("showloader")
-               fetch('/scan')
-                    .then(response => response.json())
-                    .then(data => {
-                        //  console.log(data)
-                         const objectData = Object.values(data);
-                         while (wifiTable.rows.length > 1) {
-                              wifiTable.deleteRow(1);
-                         }
-                         objectData.forEach(wifi => {
-                              for (let i = 0; i < wifi.length; i++) {
-                                   const name = wifi[i].name;
-                                   const rssi = wifi[i].rssi;
-                                   const row = document.createElement('tr');
-                                   const nameCell = document.createElement('td');
-                                   const rssiCell = document.createElement('td');
-                                   nameCell.textContent = name;
-                                   rssiCell.textContent = rssi;
-                                   row.appendChild(nameCell);
-                                   row.appendChild(rssiCell);
-                                   wifiTable.appendChild(row);
-                                   row.addEventListener("click", () => {
-                                        inputpw.classList.add("showinputpw");
-                                        nameWifi.innerHTML = name;
-                                   });
-                              }
-                         })
-                         loader.classList.remove("showloader");
-                         scanPopup.classList.add("showscan");
-                    })
-                    .catch(error => {
-                         console.error('Error:', error);
-                         loader.classList.remove("showloader");
-                    });
-          });
-
-          closePopup.addEventListener("click", () => {
-               scanPopup.classList.remove("showscan");
-          });
-          hidepw.addEventListener('click', function () {
-               if (passwordField.type == "password") {
-                    passwordField.type = "text"
-                    this.innerHTML = '&#128064;'
-               }
-               else if (passwordField.type == "text") {
-                    passwordField.type = "password"
-                    this.innerHTML = '&#128065;'
-               }
-          });
-          cancelpw.addEventListener('click', () => {
-               passwordField.value = '';
-               inputpw.classList.remove('showinputpw');
-          });
-          connectpw.addEventListener('click', () => {
-               let name = nameWifi.innerHTML;
-               let pass = passwordField.value;
-               const data = { name: name, pass: pass };
-               loader.classList.add("showloader");
-               // Tạo yêu cầu POST
-               fetch('/connect', {
-                    method: 'POST',
-                    headers: {
-                         'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
+      const scanButton = document.getElementById("scan");
+      const scanPopup = document.querySelector(".scanpopup");
+      const closePopup = document.querySelector(".close-popup");
+      const loader = document.querySelector(".loader-screen");
+      const listWifiTable = document.querySelector(".list-wifi");
+      const wifiTable = document.getElementById("wifiTable");
+      const hidepw = document.getElementById("togglePassword");
+      const cancelpw = document.getElementById("cancelButton");
+      const connectpw = document.getElementById("connectButton");
+      const passwordField = document.getElementById("passwordField");
+      const inputpw = document.querySelector(".inputpw");
+      const nameWifi = document.querySelector(".name-wifi");
+      const checkStatus = document.getElementById("switch");
+      const resetButton = document.getElementById("reset");
+      const statusON = document.querySelector(".status-on");
+      checkStatus.disabled = true;
+      var connectwifi = "not_connect";
+      scanButton.addEventListener("click", () => {
+        loader.classList.add("showloader");
+        fetch("/scan")
+               .then((response)=> response.json())
+               .then(data => {
+                     console.log(data)
+          //           const objectData = Object.values(data);
+          //           while (wifiTable.rows.length > 1) {
+          //                wifiTable.deleteRow(1);
+          //           }
+          //           objectData.forEach(wifi => {
+          //                for (let i = 0; i < wifi.length; i++) {
+          //                     const name = wifi[i].name;
+          //                     const rssi = wifi[i].rssi;
+          //                     const row = document.createElement('tr');
+          //                     const nameCell = document.createElement('td');
+          //                     const rssiCell = document.createElement('td');
+          //                     nameCell.textContent = name;
+          //                     rssiCell.textContent = rssi;
+          //                     row.appendChild(nameCell);
+          //                     row.appendChild(rssiCell);
+          //                     wifiTable.appendChild(row);
+          //                     row.addEventListener("click", () => {
+          //                          inputpw.classList.add("showinputpw");
+          //                          nameWifi.innerHTML = name;
+          //                     });
+          //                }
+          //           })
+          //           loader.classList.remove("showloader");
+          //           scanPopup.classList.add("showscan");
                })
-                    .then(response => {
-                         if (!response.ok) {
-                              throw new Error('Network response was not ok');
-                         }
-                         return response.json();
-                    })
-                    .then(data => {
-                         console.log(data);
-                         if (data.connect_wifi === "true") {
-                              loader.classList.remove("showloader");
-                              inputpw.classList.remove('showinputpw');
-                              scanPopup.classList.remove("showscan");
-                              connectwifi = "connected";
-                              console.log("Connected to WiFi, IP Address:", data.ipaddress);
-                              alert("WiFi connected successfully! IP Address: " + data.ipaddress);
-                         } else if(data.connect_wifi === "false"){
-                              loader.classList.remove("showloader");
-                              passwordField.innerHTML="";
-                         }
-                         else {
-                              console.log("Failed to connect to WiFi");
-                         }
-                    })
-                    .catch(error => {
-                         console.error('Error:', error);
-                    });
+          .catch((error) => {
+            console.error("Error:", error);
+            // loader.classList.remove("showloader");
+          });
+      });
+
+      closePopup.addEventListener("click", () => {
+        scanPopup.classList.remove("showscan");
+      });
+      hidepw.addEventListener("click", function () {
+        if (passwordField.type == "password") {
+          passwordField.type = "text";
+          this.innerHTML = "&#128064;";
+        } else if (passwordField.type == "text") {
+          passwordField.type = "password";
+          this.innerHTML = "&#128065;";
+        }
+      });
+      cancelpw.addEventListener("click", () => {
+        passwordField.value = "";
+        inputpw.classList.remove("showinputpw");
+      });
+      connectpw.addEventListener("click", () => {
+        let name = nameWifi.innerHTML;
+        let pass = passwordField.value;
+        const data = { name: name, pass: pass };
+        loader.classList.add("showloader");
+        // Tạo yêu cầu POST
+        fetch("/connect", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
           })
+          .then((data) => {
+            console.log(data);
+            if (data.connect_wifi === "true") {
+              loader.classList.remove("showloader");
+              inputpw.classList.remove("showinputpw");
+              scanPopup.classList.remove("showscan");
+              connectwifi = "connected";
+              console.log("Connected to WiFi, IP Address:", data.ipaddress);
+              alert(
+                "WiFi connected successfully! IP Address: " + data.ipaddress
+              );
+            } else if (data.connect_wifi === "false") {
+              loader.classList.remove("showloader");
+              passwordField.innerHTML = "";
+            } else {
+              console.log("Failed to connect to WiFi");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      });
 
-          var hall_sensor;
-          var defaultValue=0
-          function fetchData() {
-               fetch("/pzem")
-                    .then(response => response.json())
-                    .then(data => {
-                         console.log(data);
-                         hall_sensor_current = data.current
-                         defaultValue = hall_sensor_current
-                         machineStatus = data.machine_status
-                         updateRandomNumber(hall_sensor_current)
-                         updateMachineStatus(machineStatus)
-                    })
-                    .catch(error => {
-                         console.error('Error fetching data:', error)
-                         updateRandomNumber(defaultValue)
-                    });
-          }
-          resetButton.addEventListener("click", () => {
-               fetch('/reset')
-                    .catch(error => {
-                         console.error('There was a problem with the fetch operation:', error);
-                    });
-          })  
-          setInterval(fetchData, 1000);
-          function updateRandomNumber(data) {
-               document.querySelector('.number').innerText = data;
-          }
-          function updateMachineStatus(machineStatus) {
-              checkStatus.checked = machineStatus != "OFF" || machineStatus != "UNDEFINED";
-              statusON.innerHTML = machineStatus;
-          }
-          function checkWifiStatus() {
-               fetch("/check_wifi_status")
-                    .then(response => response.json())
-                    .then(data => {
-                         if (data.wifiStatus) {
-                        document.body.classList.add('border-red');
-                        document.body.classList.remove('border-yellow');
-                    } else {
-                        document.body.classList.add('border-yellow');
-                        document.body.classList.remove('border-red');
-                    }
-                    })
-                    .catch(error => {
-                         console.log("err",error)
-                    })
-          }
-          setInterval(checkWifiStatus,500);
-          function checkDateTime() {
-               fetch("/getdatetime")
-                    .then(response => response.json())
-                    .then(data => {
-                         console.log(data)
-                           // Assuming the data format is { dataTime: '11/06/2024 23:50:46' }
-               const dateTimeString = data.dataTime;
+      var hall_sensor;
+      var defaultValue = 0;
+      function fetchData() {
+        fetch("/pzem")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            hall_sensor_current = data.current;
+            defaultValue = hall_sensor_current;
+            machineStatus = data.machine_status;
+            updateRandomNumber(hall_sensor_current);
+            updateMachineStatus(machineStatus);
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+            updateRandomNumber(defaultValue);
+          });
+      }
+      resetButton.addEventListener("click", () => {
+        fetch("/reset").catch((error) => {
+          console.error("There was a problem with the fetch operation:", error);
+        });
+      });
+      setInterval(fetchData, 1000);
+      function updateRandomNumber(data) {
+        document.querySelector(".number").innerText = data;
+      }
+      function updateMachineStatus(machineStatus) {
+        checkStatus.checked =
+          machineStatus != "OFF" || machineStatus != "UNDEFINED";
+        statusON.innerHTML = machineStatus;
+      }
+      function getScanWifi() {
+        fetch("/getlistwifi")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.scan) {
+              console.log("no_data");
+            } else {
+              const objectData = Object.values(data);
+              while (wifiTable.rows.length > 1) {
+                wifiTable.deleteRow(1);
+              }
+              objectData.forEach((wifi) => {
+                for (let i = 0; i < wifi.length; i++) {
+                  const name = wifi[i].name;
+                  const rssi = wifi[i].rssi;
+                  const row = document.createElement("tr");
+                  const nameCell = document.createElement("td");
+                  const rssiCell = document.createElement("td");
+                  nameCell.textContent = name;
+                  rssiCell.textContent = rssi;
+                  row.appendChild(nameCell);
+                  row.appendChild(rssiCell);
+                  wifiTable.appendChild(row);
+                  row.addEventListener("click", () => {
+                    inputpw.classList.add("showinputpw");
+                    nameWifi.innerHTML = name;
+                  });
+                }
+              });
+              loader.classList.remove("showloader");
+              scanPopup.classList.add("showscan");
+            }
+          });
+      }
+      setInterval(getScanWifi, 500);
+      function checkWifiStatus() {
+        fetch("/check_wifi_status")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.wifiStatus) {
+              document.body.classList.add("border-red");
+              document.body.classList.remove("border-yellow");
+            } else {
+              document.body.classList.add("border-yellow");
+              document.body.classList.remove("border-red");
+            }
+          })
+          .catch((error) => {
+            console.log("err", error);
+          });
+      }
+      setInterval(checkWifiStatus, 500);
+      function checkDateTime() {
+        fetch("/getdatetime")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // Assuming the data format is { dataTime: '11/06/2024 23:50:46' }
+            const dateTimeString = data.dataTime;
 
-               // Split the date and time
-               const [date, time] = dateTimeString.split(' ');
+            // Split the date and time
+            const [date, time] = dateTimeString.split(" ");
 
-               // Update the HTML elements
-               document.getElementById('day-and-date').innerText = date;
-               document.getElementById('time').innerText = time;
-                    })
-          }
-          setInterval(checkDateTime, 1000);
-     </script>
+            // Update the HTML elements
+            document.getElementById("day-and-date").innerText = date;
+            document.getElementById("time").innerText = time;
+          });
+      }
+      setInterval(checkDateTime, 1000);
+    </script>
      
 )=====";
 

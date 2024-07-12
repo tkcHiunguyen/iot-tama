@@ -5,20 +5,20 @@
 #include <WiFi.h>
 
 class NetworkConfig {
-public:
-    NetworkConfig();
-    IPAddress getHost();
-    int getPort();
-    String getPath();
-    IPAddress getGateway();
-    IPAddress getNMask();
+  public:
+      NetworkConfig();
+      IPAddress getHost();
+      int getPort();
+      String getPath();
+      IPAddress getGateway();
+      IPAddress getNMask();
 
-private:
-    IPAddress host;
-    IPAddress gateway;
-    IPAddress NMask;
-    int port;
-    String path;
+  private:
+      IPAddress host;
+      IPAddress gateway;
+      IPAddress NMask;
+      int port;
+      String path;
 };
 
 #endif
