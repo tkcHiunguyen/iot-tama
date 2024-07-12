@@ -1,0 +1,432 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 50px;
+  display: block;
+  user-select: none;
+  /* Ngăn chọn văn bản */
+}
+
+button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  margin: 10px;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.number {
+  margin-top: 50px;
+  /* Set the display to inline-block to allow for a specific width and height */
+  display: inline-block;
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  background-color: #ddd;
+  border: 5px solid #818181;
+  border-radius: 50px;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.scanpopup {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #1d1d22d7;
+  z-index: 2;
+}
+
+.showscan {
+  display: block;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 70%;
+  background-color: rgb(75, 80, 178);
+  border: solid 5px #898989;
+  border-radius: 10px;
+  /* z-index: 10; */
+  text-align: center;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.show {
+  display: block;
+}
+
+.close-popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+.border-red {
+  border: 10px solid rgb(0, 255, 136);
+}
+
+.border-yellow {
+  border: 10px solid yellow;
+}
+
+.title {
+  /* margin-top: 50px; */
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  width: 100%;
+  padding-top: 30px;
+  width: 100%;
+}
+
+.list-wifi {
+  font-family: Arial, sans-serif;
+
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  width: 100%;
+  max-width: 100%;
+  height: 50%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.list-wifi th,
+.list-wifi td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 3px solid #ddd;
+}
+
+.list-wifi th {
+  background-color: #4caf50;
+  border-radius: 10px;
+  color: white;
+}
+
+.list-wifi tr {
+  border: solid;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.list-wifi tr:hover {
+  background-color: #313131;
+  color: white;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader-screen {
+  display: none;
+  opacity: 0;
+  background-color: #616161b2;
+  position: fixed;
+  /* Sử dụng fixed để phủ toàn bộ màn hình */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  /* Chiều rộng toàn màn hình */
+  height: 100vh;
+  /* Chiều cao toàn màn hình */
+  flex-direction: column;
+  /* Canh giữa nội dung theo chiều dọc */
+  justify-content: center;
+  /* Canh giữa theo chiều dọc */
+  align-items: center;
+  /* Canh giữa theo chiều ngang */
+  z-index: 4;
+  transition: opacity 0.5s ease;
+}
+
+.loading-content {
+  margin-bottom: 20px;
+  /* Khoảng cách giữa nội dung và loader */
+  padding: 10px;
+  border: solid white 5px;
+  border-radius: 10px;
+  font-size: 30px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: white;
+  background-color: #1d1d22c0;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  /* Thêm animation cho loader */
+}
+
+/* @keyframes l2 {
+  to {
+    transform: rotate(1turn);
+  }
+} */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.showloader {
+  display: flex;
+  /* Chuyển display sang flex để hiện phần tử */
+  opacity: 1;
+  /* Tăng opacity lên 1 */
+}
+
+input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 200px;
+  height: 100px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+  margin: 0px 20px 0px 20px;
+  z-index: 1;
+}
+
+label:after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 90px;
+  height: 90px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+input:checked+label {
+  background: #bada55;
+}
+
+input:checked+label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+label:active:after {
+  width: 130px;
+}
+
+.machine-status {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  font-size: 24px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-on,
+.status-off {
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.status-off {
+  background-color: #c74a24;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Optional: Remove outline on focus, for better user experience on mobile */
+div:focus {
+  outline: none;
+}
+
+.popup::-webkit-scrollbar {
+  width: 12px;
+  /* Width of the vertical scrollbar */
+  height: 12px;
+  /* Height of the horizontal scrollbar */
+}
+
+.popup::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Background of the scrollbar track */
+  border-radius: 10px;
+}
+
+.popup::-webkit-scrollbar-thumb {
+  background: #888;
+  /* Color of the scrollbar thumb */
+  border-radius: 10px;
+  border: 3px solid #f1f1f1;
+  /* Creates padding around the thumb */
+}
+
+.popup::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* Color of the scrollbar thumb on hover */
+}
+
+.inputpw {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(65, 65, 65, 0.836);
+  justify-items: center;
+  z-index: 3;
+}
+
+.showinputpw {
+  display: block;
+}
+
+.popup-pw {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.name-wifi {
+  margin-top: 10px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.nhapmatkhau {
+  padding: 5px;
+  padding-left: 10px;
+  margin-top: 10px;
+  padding-bottom: 2px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.popup-pw input {
+  margin: 10px;
+  padding: 5px;
+  border: 2px solid;
+  border-radius: 5px;
+  margin-bottom: 1px;
+}
+
+.toggle-password {
+  display: flex;
+  margin-right: 15px;
+  justify-content: end;
+  font-size: 20px;
+  margin-top: -5px;
+  cursor: pointer;
+}
+
+.fncBtn {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.fncBtn input {
+  margin-top: 5px;
+  padding: 5px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.fncBtn .connect {
+  background-color: rgb(127, 219, 168);
+}
+
+.fncBtn .cancel {
+  background-color: rgb(214, 114, 56);
+}
+
+.datetime-display {
+  text-align: center;
+  border: 5px solid burlywood;
+  font-family: math;
+  padding: 10px;
+}
+
+#time {
+  font-weight: 400;
+  display: block;
+  font-size: 30px;
+  margin: 0 0 5px;
+  letter-spacing: 5px;
+}
