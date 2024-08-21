@@ -33,24 +33,13 @@
  * +--------------+---------+-------+----------+----------+----------+----------+----------+
  * | SCK (SCLK)   | GPIO14  | GPIO18| GPIO36   | GPIO12   | GPIO4    | GPIO21   | GPIO10   |
  * +--------------+---------+-------+----------+----------+----------+----------+----------+
- *
- * For more info see file README.md in this library or on URL:
- * https://github.com/espressif/arduino-esp32/tree/master/libraries/SD
  */
-
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
-
-/*
-Uncomment and set up if you want to use custom pins for the SPI communication
-#define REASSIGN_PINS
-int sck = -1;
-int miso = -1;
-int mosi = -1;
-int cs = -1;
-*/
+#include <Arduino.h>
 #include <ArduinoJson.h>
+#include <ArduinoSocketIOClient.h>
 #include <HTTPClient.h>
 #include <HardwareSerial.h>
 #include <NTPClient.h>
@@ -65,77 +54,57 @@ int cs = -1;
 #include <freeRTOS/task.h>
 #include <lib_monitor/start.h>
 #include <networkConfig.h>
+#define SD_CS 5
+#define SPI_MOSI 23
+#define SPI_MISO 19
+#define SPI_SCK 18
 #define PZEM_RX_PIN 16
 #define PZEM_TX_PIN 17
 #define MAINCORE 1
 #define SUBCORE 0
+#define UUID_LIST_SIZE 500
 
+int global_count_wifi;
+float global_current PROGMEM = 0.00;
+String global_status PROGMEM = "UNDEFINED";
+String globalWifiScanResult PROGMEM;
 PZEM004Tv30 pzem(Serial2, PZEM_RX_PIN, PZEM_TX_PIN);
-// connect ggSHEET
-const char *ssid = "ESP-32";
-const char *password = "esp32tama";
+// const char *ssid = "ESP-32";
+// const char *password = "esp32tama";
 const char *ggsheet =
     "https://script.google.com/macros/s/"
     "AKfycbyQWoQK_i1k4Mfx_vy-KYGwLxmJK9FIXuke5Jt6VJrfUQYpco39sqf_OVTHG8EcUgTY/"
     "exec";
 
-// global value
-String global_status PROGMEM = "UNDEFINED";
-String global_oldStatus PROGMEM = "UNDEFINED";
-float global_current PROGMEM = 0.00;
-unsigned long last_status_change_time PROGMEM = 0;
-String DateTimeEndStatus PROGMEM = "";
-String global_previousStatus PROGMEM = "null";
-float global_updatetime PROGMEM;
-String globalWifiScanResult PROGMEM;
-SemaphoreHandle_t wifiScanSemaphore PROGMEM;
-SemaphoreHandle_t wifiConnectSemaphore PROGMEM;
-float global_cal_sum_current PROGMEM = 0;
-int global_total_current_count PROGMEM = 1;
-float global_average_current PROGMEM = 0;
-
-// timer calculate duration on/off
-long global_durationTime_sec PROGMEM;
-long global_afterTime01 PROGMEM;
-long global_afterTime02 PROGMEM;
-long global_elapsedTime PROGMEM;
-
-// millis wifi connect
+// uint16_t port = 3000;
 bool global_status_wifi PROGMEM = false;
 bool global_scan_wifi_flag PROGMEM = false;
-
-// READ SD CARD
-#define SD_CS 5
-#define SPI_MOSI 23
-#define SPI_MISO 19
-#define SPI_SCK 18
+long global_loopTimeout = 0;
+long utcOffsetInSeconds = 25200; // 7 hours * 3600 seconds/hour, set time zone GMT+7
+SemaphoreHandle_t wifiScanSemaphore PROGMEM;
+ArduinoSocketIOClient socket;
 File SDCard;
 WiFiUDP ntpUDP;
-int global_count_wifi;
-unsigned long previousMillis = 0; // Thời gian lưu lần cuối LED được nháy
-
-const long utcOffsetInSeconds = 25200;                                   // 7 hours * 3600 seconds/hour, set time zone GMT+7
-NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds, 60000); // get GMT +7
 NetworkConfig networkConfig;
+const char host[] = "iot.skybot.id.vn";
+// String host = networkConfig.getSocketHost();
+long port = networkConfig.getSocketport();
+const char *time_server = networkConfig.getTimeServer();
+NTPClient timeClient(ntpUDP, time_server, networkConfig.getUTCTimezoneSecond(), 60000); // get GMT +7
 SemaphoreHandle_t sendRealTimeSemaphore;
 WebServer server(networkConfig.getPort());
-int current_index = 0;
-DynamicJsonDocument jsonDoc(1024);
+UUIDGenerator uuidGen;
+String idMachine = "node_1";
+String idESP = "01";
+String uuidListCheck[UUID_LIST_SIZE];
+int countList = 0;
+unsigned long global_epochtime = 0;
+unsigned long global_millis_point = 0;
+String global_local_nowtime = "null";
 struct pzem_data {
       float current;
       String machineSatus;
 };
-struct DataSendToGGSheet {
-      unsigned long duration;
-      float averageCurrent;
-      String status;
-      String dateTimeEnd;
-      String dateTimeStart;
-      String MachineID;
-      String uuid;
-};
-DataSendToGGSheet currentStatusData PROGMEM;
-// DataSendToGGSheet DataSendToGGSheetQueue[700] PROGMEM;
 pzem_data pzemSensor() {
       pzem_data data;
       data.current = pzem.current();
@@ -154,19 +123,12 @@ pzem_data pzemSensor() {
 
       return data;
 }
-// void blinkLED(unsigned long interval) {
-//       unsigned long currentMillis = millis(); // Lấy thời gian hiện tại
-//
-//       // Kiểm tra xem đã đến lúc nháy LED chưa
-//       if (currentMillis - previousMillis >= interval) {
-//             // Lưu thời gian nháy lần cuối
-//             previousMillis = currentMillis;
-//
-//             // Đổi trạng thái của LED
-//             ledState = !ledState;
-//             digitalWrite(ledPin, ledState);
-//       }
-// }
+bool checkSDCard() {
+      if (!SD.begin()) {
+            return false;
+      }
+      return true;
+}
 void printSDCardInfo() {
       uint64_t totalBytes = SD.totalBytes();
       uint64_t usedBytes = SD.usedBytes();
@@ -230,19 +192,21 @@ void removeDir(fs::FS &fs, const char *path) {
       }
 }
 void readFile(fs::FS &fs, const char *path) {
-      Serial.printf("Reading file: %s\n", path);
+      if (checkSDCard()) {
+            Serial.printf("Reading file: %s\n", path);
 
-      File file = fs.open(path);
-      if (!file) {
-            Serial.println("Failed to open file for reading");
-            return;
-      }
+            File file = fs.open(path);
+            if (!file) {
+                  Serial.println("Failed to open file for reading");
+                  return;
+            }
 
-      Serial.print("Read from file: ");
-      while (file.available()) {
-            Serial.write(file.read());
+            Serial.print("Read from file: ");
+            while (file.available()) {
+                  Serial.write(file.read());
+            }
+            file.close();
       }
-      file.close();
 }
 void writeFile(fs::FS &fs, const char *path, const char *message) {
       Serial.printf("Writing file: %s\n", path);
@@ -260,19 +224,21 @@ void writeFile(fs::FS &fs, const char *path, const char *message) {
       file.close();
 }
 void appendFile(fs::FS &fs, const char *path, const char *message) {
-      Serial.printf("Appending to file: %s\n", path);
+      if (checkSDCard) {
+            // Serial.printf("Appending to file: %s\n", path);
 
-      File file = fs.open(path, FILE_APPEND);
-      if (!file) {
-            Serial.println("Failed to open file for appending");
-            return;
+            File file = fs.open(path, FILE_APPEND);
+            if (!file) {
+                  Serial.println("Failed to open file for appending");
+                  return;
+            }
+            if (file.print(message)) {
+                  // Serial.println("File appended");
+            } else {
+                  Serial.println("Append failed");
+            }
+            file.close();
       }
-      if (file.print(message)) {
-            Serial.println("File appended");
-      } else {
-            Serial.println("Append failed");
-      }
-      file.close();
 }
 void deleteFile(fs::FS &fs, const char *path) {
       Serial.printf("Deleting file: %s\n", path);
@@ -294,26 +260,23 @@ void createFile(fs::FS &fs, const char *path) {
       file.close();
 }
 bool isDuplicate(fs::FS &fs, const char *path, const char *message) {
-      File file = fs.open(path, FILE_READ);
-      if (!file) {
-            // Serial.println("Failed to open file for reading");
-            return true;
-      }
-
-      String line;
-      while (file.available()) {
-            line = file.readStringUntil('\n');
-            if (line == message) {
-                  // Serial.println("i have duuplicate");
-                  file.close();
+      if (checkSDCard) {
+            File file = fs.open(path, FILE_READ);
+            if (!file) {
+                  // Serial.println("Failed to open file for reading");
                   return true;
             }
-      }
-      file.close();
-      return false;
-}
-bool checkSDCard() {
-      if (!SD.begin()) {
+
+            String line;
+            while (file.available()) {
+                  line = file.readStringUntil('\n');
+                  if (line == message) {
+                        // Serial.println("i have duuplicate");
+                        file.close();
+                        return true;
+                  }
+            }
+            file.close();
             return false;
       }
       return true;
@@ -353,7 +316,6 @@ String mergeHTML_CSS(String title, String bodyContent, String cssContent) {
       }
       return mergeContent;
 }
-// Hàm chuyển chuỗi thời gian thành time_t (epoch time)
 String calcTimerMillis(long millis) {
       // Tính toán số giờ, phút và giây
       long seconds = millis / 1000; // Chuyển đổi milliseconds thành giây
@@ -413,87 +375,69 @@ String getTimeString(long millis) {
       }
       return "null";
 }
-int handleGoogleSheet(String status, String dateTimeStart, String dateTimeEnd, unsigned long duration, String MachineID, float averageCurrent, String uuid) {
-      Serial.println("start void handleGoogleSheet");
-      if (WiFi.status() == WL_CONNECTED) {
-            HTTPClient http;
-            http.begin(ggsheet);
-            http.addHeader("Content-Type", "application/json");
-            // Serial.println(global_elapsedTime);
-            String jsonPayload =
-                "{\"dateTimeStart\":\"" + dateTimeStart + "\",\"dateTimeEnd\":\"" +
-                dateTimeEnd + "\",\"value\":\"" + status + "\",\"duration\":\"" +
-                calcTimerMillis(duration) + "\",\"machineID\":\"" + MachineID +
-                "\",\"averageCurrent\": \"" + averageCurrent + "\",\"uuid\": \"" + uuid + "\"}";
-            int httpResponseCode = http.POST(jsonPayload);
-            Serial.println(jsonPayload);
-            if (httpResponseCode > 0) {
-                  String response = http.getString();
-                  Serial.println("post google sheet ok!");
-            } else {
-                  Serial.print("Error on sending POST: ");
-                  Serial.println(httpResponseCode);
-            }
-            http.end();
-            return httpResponseCode;
-            Serial.print("code: ");
-            Serial.println(httpResponseCode);
+void updateLocalTime() {
+      unsigned long currentEpochTime = global_epochtime + (millis() - global_millis_point) / 1000;
+      struct tm *ptm = gmtime((time_t *)&currentEpochTime);
+
+      int day = ptm->tm_mday;
+      int month = ptm->tm_mon + 1;
+      int year = ptm->tm_year + 1900;
+      int hour = ptm->tm_hour;
+      int minute = ptm->tm_min;
+      int second = ptm->tm_sec;
+
+      char formattedDateTime[20];
+      sprintf(formattedDateTime, "%02d/%02d/%04d %02d:%02d:%02d", month, day, year, hour, minute, second);
+
+      global_local_nowtime = String(formattedDateTime);
+}
+void syncTimeLocal() {
+      if (global_status_wifi) {
+            timeClient.update();
+            time_t epochTime = timeClient.getEpochTime();
+            global_epochtime = epochTime;
+            global_millis_point = millis();
+            updateLocalTime();
       }
-      return 9999;
+}
+String getCurrentTimeString() {
+      if (global_status_wifi) {
+            syncTimeLocal();
+      } else {
+            updateLocalTime();
+      }
+      return global_local_nowtime;
+}
+String checkSDWifi(int list, fs::FS &fs, const char *path) {
+      if (checkSDCard()) {
+            for (int i = 0; i < list; i++) {
+                  File file = fs.open(path, FILE_READ);
+                  if (!file) {
+                        // Serial.println("Failed to open file for reading");
+                        ESP.restart();
+                        return "NULL";
+                  }
+                  String line;
+                  while (file.available()) {
+                        line = file.readStringUntil('\n');
+                        if (line.substring(0, line.indexOf(":")) == WiFi.SSID(i)) { // GET NAME WIFI
+                              file.close();
+                              // return line.substring(line.indexOf(":") + 1); // RETURN PASS
+                              return line;
+                        }
+                  }
+                  file.close();
+            }
+      }
+      return "NULL";
 }
 void startPage() {
       String htmlContent = HTML_CONTENT;
       String cssContent = CSS_CONTENT;
-
-      // Gửi nội dung HTML và CSS đến máy khách
-      // server.setContentLength(htmlContent.length());
-      const String start_content =
-          mergeHTML_CSS("Welcome!!", htmlContent, cssContent);
+      const String start_content = mergeHTML_CSS("Welcome!!", htmlContent, cssContent);
       server.setContentLength(start_content.length());
       server.send(200, "text/html", start_content);
 }
-// void scanPageTask(void *pvParameters) {
-//
-//       Serial.print("Scanning wifi ");
-//       if (xSemaphoreTake(wifiScanSemaphore, portMAX_DELAY) == pdTRUE) {
-//             DynamicJsonDocument doc(2048); // Adjust size as needed
-//             JsonArray networks = doc.createNestedArray("networks");
-//             int listNetwork = WiFi.scanNetworks();
-//             if (listNetwork == 0) {
-//                   Serial.println("No networks found");
-//             } else {
-//                   // Create a dynamic JSON document for efficient memory usage
-//
-//                   for (int i = 0; i < listNetwork; i++) {
-//                         // Create a nested object for each network
-//                         JsonObject network = networks.createNestedObject();
-//
-//                         // Add key-value pairs with appropriate data types
-//                         network["name"] = WiFi.SSID(i);
-//                         network["rssi"] = WiFi.RSSI(i);
-//
-//                         Serial.print("Network name: ");
-//                         Serial.println(WiFi.SSID(i));
-//                         Serial.print("Signal strength (RSSI): ");
-//                         Serial.println(WiFi.RSSI(i));
-//                         Serial.println("-----------------------");
-//                   }
-//
-//                   // Serialize JSON object to a string (consider error handling)
-//                   String jsonString;
-//                   if (serializeJson(doc, jsonString) > 0) {
-//                         globalWifiScanResult = jsonString;
-//                         global_count_wifi = listNetwork;
-//                         global_scan_wifi_flag = true;
-//                   } else {
-//                         Serial.println("Error serializing JSON");
-//                   }
-//             }
-//             WiFi.scanDelete();
-//             xSemaphoreGive(wifiScanSemaphore);
-//             vTaskDelete(NULL);
-//       }
-// }
 void scanPageTask() {
       if (xSemaphoreTake(wifiScanSemaphore, portMAX_DELAY) == pdTRUE) {
             Serial.print("Scanning wifi ");
@@ -594,35 +538,8 @@ void handleConnect() {
                           "\"}";
       server.send(200, "application/json", jsonString);
 }
-String checkSDWifi(int list, fs::FS &fs, const char *path) {
-      for (int i = 0; i < list; i++) {
-            File file = fs.open(path, FILE_READ);
-            if (!file) {
-                  // Serial.println("Failed to open file for reading");
-                  return "NULL";
-            }
-            String line;
-            while (file.available()) {
-                  line = file.readStringUntil('\n');
-                  if (line.substring(0, line.indexOf(":")) == WiFi.SSID(i)) { // GET NAME WIFI
-                        file.close();
-                        // return line.substring(line.indexOf(":") + 1); // RETURN PASS
-                        return line;
-                  }
-            }
-            file.close();
-      }
-      return "NULL";
-}
-// void DataSendToGGSheetAddToQueue(DataSendToGGSheet Data) {
-//       DataSendToGGSheetQueue[current_index] = Data;
-//       current_index = (current_index + 1) % 1000;
-// }
 void sendPzemData() {
       StaticJsonDocument<200> jsonPzem;
-      // pzem_data pzem             = pzemSensor();
-      // jsonPzem["current"]        = pzem.current;
-      // jsonPzem["machine_status"] = pzem.machineSatus;
       jsonPzem["current"] = global_current;
       jsonPzem["machine_status"] = global_status;
       // Convert JSON object to string
@@ -639,28 +556,169 @@ void checkWifiStatus() {
       server.send(200, "application/json", jsonString);
 }
 bool checkWifi() {
-      return global_status_wifi;
+      return WiFi.status() == WL_CONNECTED;
 }
 void checkReset() {
       Serial.println("RESET ESP");
-      createFile(SD, "/data.txt");
+      // createFile(SD, "/data.txt");
       ESP.restart();
 }
-// void init_esp_mode_and_wifi(void *pvParameters) {
+void getDeleteData() {
+      StaticJsonDocument<200> jsonPzem;
+      if ((checkSDCard)) {
+            createFile(SD, "/data.txt");
+            jsonPzem["data"] = "cleared file data.txt ok";
+
+      } else {
+            jsonPzem["data"] = "Fail to clear file data.txt ";
+      }
+      String jsonString;
+      serializeJson(jsonPzem, jsonString);
+      server.send(200, "application/json", jsonString);
+}
+void getOpendata() {
+      if (!SD.begin()) {
+            server.send(500, "application/json", "{\"error\":\"Failed to initialize SD card\"}");
+            return;
+      }
+
+      File file = SD.open("/data.txt");
+      if (!file) {
+            server.send(404, "application/json", "{\"error\":\"File not found\"}");
+            return;
+      }
+
+      server.streamFile(file, "application/octet-stream");
+      file.close();
+}
+void getOpenwifi() {
+      if (!SD.begin()) {
+            server.send(500, "application/json", "{\"error\":\"Failed to initialize SD card\"}");
+            return;
+      }
+
+      File file = SD.open("/wifi.txt");
+      if (!file) {
+            server.send(404, "application/json", "{\"error\":\"File not found\"}");
+            return;
+      }
+
+      StaticJsonDocument<1024> jsonDoc;
+      String fileContent = "";
+
+      while (file.available()) {
+            fileContent += char(file.read());
+      }
+      file.close();
+
+      jsonDoc["data"] = fileContent;
+      String jsonString;
+      serializeJson(jsonDoc, jsonString);
+      server.send(200, "application/json", jsonString);
+}
+void getDeletewifi() {
+      StaticJsonDocument<200> jsonPzem;
+      if ((checkSDCard)) {
+            createFile(SD, "/wifi.txt");
+            jsonPzem["data"] = "cleared file data.txt ok";
+
+      } else {
+            jsonPzem["data"] = "Fail to clear file data.txt ";
+      }
+      String jsonString;
+      serializeJson(jsonPzem, jsonString);
+      server.send(200, "application/json", jsonString);
+}
+void getCheckSD() {
+      StaticJsonDocument<200> jsonPzem;
+      if ((checkSDCard)) {
+            jsonPzem["data"] = "true";
+
+      } else {
+            jsonPzem["data"] = "false";
+      }
+      String jsonString;
+      serializeJson(jsonPzem, jsonString);
+      server.send(200, "application/json", jsonString);
+}
+void add_uuid_queue(const char *payload, size_t length) {
+      if (countList < UUID_LIST_SIZE) {
+            uuidListCheck[countList] = String(payload); // Thêm UUID vào danh sách
+            countList++;                                // Tăng biến đếm
+      } else {
+            Serial.println("UUID list is full, cannot add new UUID!");
+      }
+}
+void check_list_uuid() {
+      if (checkSDCard && countList != 0) {
+            File fileread = SD.open("/data.txt", FILE_READ);
+            String newContent = "";
+            Serial.print("countList: ");
+            Serial.println(countList);
+            createFile(SD, "/data_temp.txt ");
+            File filewrite = SD.open("/data_temp.txt", FILE_WRITE);
+            if (!filewrite) {
+                  Serial.println("Failed to open file for writing");
+                  fileread.close();
+                  return;
+            }
+            while (fileread.available()) {
+                  String line = fileread.readStringUntil('\n');
+                  bool found = false;
+
+                  // Kiểm tra xem dòng này có chứa bất kỳ UUID nào không
+                  for (int i = 0; i < countList; i++) {
+                        if (line.indexOf(uuidListCheck[i]) > 0) {
+                              found = true;
+                              Serial.println(uuidListCheck[i]);
+                              break; // Thoát khỏi vòng lặp nếu tìm thấy UUID
+                        }
+                  }
+
+                  // Nếu không tìm thấy bất kỳ UUID nào, thêm dòng vào nội dung mới
+                  if (!found) {
+                        newContent += line + "\n";
+                        filewrite.println(line);
+                  }
+            }
+            fileread.close();
+            filewrite.close();
+
+            // Xóa hết UUID trong danh sách
+            for (int i = 0; i < countList; i++) {
+                  uuidListCheck[i] = "";
+            }
+            countList = 0; // Đặt lại số lượng UUID
+
+            // Ghi lại nội dung mới vào file
+            // File filewrite = SD.open("/data.txt", FILE_WRITE);
+            // filewrite.print(newContent);
+            // filewrite.close();
+            SD.remove("/data.txt");
+            SD.rename("/data_temp.txt", "/data.txt");
+            Serial.println("Processed and updated file content.");
+      }
+}
+void onConnect(const char *payload, size_t length) {
+      Serial.println("Connected to Socket.IO server");
+}
+void onDisconnect(const char *payload, size_t length) {
+      Serial.println("Disconnected from Socket.IO server");
+}
+void setupDevice(const char *payload, size_t length) {
+      idMachine = payload;
+}
 void init_esp_mode_and_wifi() {
       if (xSemaphoreTake(wifiScanSemaphore, portMAX_DELAY) == pdTRUE) {
-            // WiFi.begin("Tiem Tra MIN", "xincamon");
-            // WiFi.begin("Tama-Guest", "tama12!@");
             // WiFi.begin("Cafe Trung Nguyen", "88888888");
             // WiFi.begin("Galaxy S22 Ultra C5C9", "stsvn2024");
             // WiFi.begin("Tama-Guest", "tama12!@");
             // WiFi.begin("SKYBOT", "skybot@2023");
-            // WiFi.begin("Xuan Tung", "Tung1996!1");
             int listWifi = WiFi.scanNetworks();
             String found_wifi = checkSDWifi(listWifi, SD, "/wifi.txt");
             Serial.print("pass found: ");
             ;
-            if (found_wifi != "null") {
+            if (found_wifi != "NULL") {
                   WiFi.begin(found_wifi.substring(0, found_wifi.indexOf(":")), found_wifi.substring(found_wifi.indexOf(":") + 1));
             }
             long start_wifi = millis();
@@ -672,6 +730,7 @@ void init_esp_mode_and_wifi() {
             case true:
                   global_status_wifi = true;
                   Serial.println(WiFi.localIP());
+                  syncTimeLocal();
                   break;
 
             default:
@@ -685,8 +744,12 @@ void init_esp_mode_and_wifi() {
             Serial.println(xPortGetCoreID());
             xSemaphoreGive(wifiScanSemaphore);
       }
-      // xSemaphoreGive(wifiConnectSemaphore);
-      // vTaskDelete(NULL);
+      // socket.begin("192.168.2.13", 3000);
+      socket.begin(host);
+      socket.on("connect", onConnect);
+      socket.on("disconnect", onDisconnect);
+      socket.on("setup_device", setupDevice);
+      socket.on("check_uuid" + idESP, add_uuid_queue);
 }
 void getListWifi() {
       if (global_scan_wifi_flag == true) {
@@ -697,20 +760,11 @@ void getListWifi() {
       }
 }
 void serverTask(void *pvParameters) {
-      // if (xSemaphoreTake(wifiConnectSemaphore, portMAX_DELAY) == pdTRUE) {
       while (true) {
             server.handleClient();
             vTaskDelay(1 / portTICK_PERIOD_MS);
             // xSemaphoreGive(wifiScanSemaphore);
       }
-      // }
-}
-void testRTOSTask(void *pvParameters) {
-      while (1) {
-            Serial.println("testcore");
-            vTaskDelay(100 / portTICK_PERIOD_MS);
-      }
-      vTaskDelete(NULL);
 }
 void getNowDateTime() {
       StaticJsonDocument<200> jsonDatetime;
@@ -719,189 +773,78 @@ void getNowDateTime() {
       serializeJson(jsonDatetime, jsonString);
       server.send(200, "application/json", jsonString);
 }
-// void readPZEMTask(void *pvParameters) {
-//       while (1) {
-//             pzem_data pzem1 = pzemSensor();
-//             global_current = pzem1.current;
-//             global_status = pzem1.machineSatus;
-//             global_cal_sum_current += pzem1.current;
-//             global_total_current_count++;
-//             global_average_current = global_cal_sum_current / global_total_current_count;
-//             if (global_oldStatus != global_status) {
-//                   if (global_status == "STAND BY") {
-//                         uuid = uuidGen.generateUUIDv4();
-//                   }
-//                   DateTimeEndStatus = getTimeString();
-//                   currentStatusData.status = global_oldStatus;
-//                   currentStatusData.dateTimeEnd = DateTimeEndStatus;
-//                   global_oldStatus = global_status;
-//                   last_status_change_time = millis();
-//                   global_durationTime_sec = last_status_change_time - global_afterTime02;
-//                   global_afterTime02 = last_status_change_time;
-//                   currentStatusData.duration = global_durationTime_sec;
-//                   currentStatusData.dateTimeStart = getTimeString(global_durationTime_sec);
-//                   currentStatusData.averageCurrent = global_average_current;
-//                   currentStatusData.MachineID = "T300-15";
-//                   currentStatusData.uuid = uuid;
-//                   global_average_current = 0;
-//                   global_cal_sum_current = 0;
-//                   global_total_current_count = 0;
-//                   // DataSendToGGSheetAddToQueue(currentStatusData);
-//             }
-//             Serial.print("current: ");
-//             Serial.println(global_current);
-//             vTaskDelay(1000 / portTICK_PERIOD_MS);
-//       }
-//       // vTaskDelete(NULL);
-// }
-void readPZEMTask() {
-      String uuid = "...";
+String readPZEMTask() {
       pzem_data pzem1 = pzemSensor();
       global_current = pzem1.current;
       global_status = pzem1.machineSatus;
-      global_cal_sum_current += pzem1.current;
-      global_total_current_count++;
-      global_average_current = global_cal_sum_current / global_total_current_count;
-      if (global_oldStatus != global_status) {
-            DateTimeEndStatus = getTimeString();
-            currentStatusData.status = global_oldStatus;
-            currentStatusData.dateTimeEnd = DateTimeEndStatus;
-            global_oldStatus = global_status;
-            last_status_change_time = millis();
-            global_durationTime_sec = last_status_change_time - global_afterTime02;
-            global_afterTime02 = last_status_change_time;
-            currentStatusData.duration = global_durationTime_sec;
-            currentStatusData.dateTimeStart = getTimeString(global_durationTime_sec);
-            currentStatusData.averageCurrent = global_average_current;
-            currentStatusData.MachineID = "T300-15";
-            currentStatusData.uuid = uuid;
-            global_average_current = 0;
-            global_cal_sum_current = 0;
-            global_total_current_count = 0;
-            // DataSendToGGSheetAddToQueue(currentStatusData);
-      }
-      Serial.print("current: ");
-      Serial.println(global_current);
-}
-// void removeElement(DataSendToGGSheet arr[], int &size, int index) {
-//       if (index < 0 || index >= size) {
-//             return;
-//       }
-//       for (int i = index; i < size - 1; i++) {
-//             arr[i] = arr[i + 1];
-//       }
-//       size--;
-// }
-void removeFirstLine(fs::FS &fs, const char *path) {
-      File file = fs.open(path, "r");
-      if (!file) {
-            Serial.println("Failed to open file for reading");
-            return;
-      }
-      // Skip the first line
-      file.readStringUntil('\n');
-      // Read the remaining content
-      String remainingContent;
-      while (file.available()) {
-            remainingContent += file.readStringUntil('\n') + "\n";
-      }
-      file.close();
-
-      // Write back the remaining content
-      file = fs.open(path, "w");
-      if (!file) {
-            Serial.println("Failed to open file for writing");
-            return;
-      }
-      file.print(remainingContent);
-      file.close();
-}
-void sendRealtimeRawData(String code, String dateTimeStart, float current, String MachineID, String uuid, fs::FS &fs, const char *path) {
+      String clienttime = getCurrentTimeString();
+      // Serial.print("current: ");
+      // Serial.println(global_current);
+      String uuid = uuidGen.generateUUIDv4();
       String jsonPayload =
-          "{\"dateTimeStart\":\"" + dateTimeStart + "\",\"code\":\"" +
-          code + "\",\"machineID\":\"" + MachineID +
-          "\",\"current\": \"" + current + "\",\"uuid\": \"" + uuid + "\"}\n";
-      appendFile(fs, path, jsonPayload.c_str());
-      if (WiFi.status() == WL_CONNECTED) {
-            HTTPClient http;
-            http.begin(ggsheet);
-            http.addHeader("Content-Type", "application/json");
-            File file = fs.open(path, FILE_READ);
-            if (!file) {
-                  Serial.println("Failed to open file for reading");
-                  file.close();
-                  return;
-            }
-            String lines[5];
+          "{\"device\": \"" + idESP + "\",\"data\":{\"code\":\"realtime\",\"machineID\":\"" + idMachine +
+          "\",\"current\": \"" + global_current + "\",\"uuid\":\"" + uuid + "\",\"clienttime\":\"" + clienttime + "\",\"status\": \"" + global_status + "\"}}\n";
+      // socket.emit("device_info", idMachine);
+      return jsonPayload;
+}
+void resendDataInSDCard() {
+      if (checkSDCard()) {
+            File fileread = SD.open("/data.txt", FILE_READ);
             int count = 0;
-            while (file.available() && count < 5) {
-                  lines[count] = file.readStringUntil('\n');
+            while (fileread.available() && count < 30) {
+                  String line = fileread.readStringUntil('\n');
+                  socket.emit("readpzem", line);
                   count++;
             }
-            file.close();
-            String jsonArray = "[";
-            for (int i = 0; i < count; i++) {
-                  jsonArray += lines[i];
-                  if (i < count - 1) {
-                        jsonArray += ",";
-                  }
-            }
-            jsonArray += "]";
-
-            int httpResponseCode = http.POST(jsonArray);
-            Serial.println(jsonArray);
-            if (httpResponseCode > 199 && httpResponseCode < 400) { // HTTP RESPONSE CODE
-                  String response = http.getString();
-                  Serial.println(httpResponseCode);
-                  // Serial.println(response);
-                  Serial.println("post google sheet ok!");
-                  for (int i = 0; i < count; i++) {
-                        removeFirstLine(fs, path);
-                  }
-            } else {
-                  Serial.print("Error on sending POST: ");
-                  Serial.println(httpResponseCode);
-            }
-            http.end();
+            fileread.close();
       }
 }
-// void sendRealTimeTask(void *parameter) {
-//       if (xSemaphoreTake(sendRealTimeSemaphore, portMAX_DELAY) == pdTRUE) {
-//             sendRealtimeRawData("realtime", getTimeString(), global_current, "T300-15", "--");
-//             xSemaphoreGive(sendRealTimeSemaphore);
-//             vTaskDelete(NULL);
-//       }
-// }
-// void redirectSerialToFS() {
-//       // Redirect Serial output to file
-//       Serial.flush();             // Wait for any remaining data to be sent
-//       Serial.setOutput(&logFile); // Redirect Serial to logFile
-// }
+int checkLineInFile() {
+      if (checkSDCard()) {
+            File fileread = SD.open("/data.txt", FILE_READ);
+            int count = 0;
+            while (fileread.available()) {
+                  String line = fileread.readStringUntil('\n');
+                  count++;
+            }
+            fileread.close();
+            return count;
+      }
+      return 0;
+}
+void sendRealtimeRawData(String data, fs::FS &fs, const char *path) {
+      if (!checkSDCard()) {
+            socket.emit("readpzem", data);
+            return;
+      } else {
+            appendFile(fs, path, data.c_str());
+      }
+}
 void setup() {
       Serial.begin(115200);
       if (!checkSDCard()) {
             Serial.println("SD Card Mount Failed");
-            return;
       } else {
             Serial.println("SD Card Mount Successful");
             printSDCardInfo();
+            listDir(SD, "/", 0);
       }
       // createFile(SD, "/wifi.txt");
       // createFile(SD, "/data.txt");
       // appendFile(SD, "/wifi.txt", "SKYBOT:skybot@2023\n");
       // appendFile(SD, "/wifi.txt", "Galaxy S22 Ultra C5C9:stsvn2024\n");
       // appendFile(SD, "/wifi.txt", "TAMA-IOT-2.4G-ext:12345678\n");
-      listDir(SD, "/", 0);
       WiFi.mode(WIFI_MODE_APSTA);
       IPAddress IP = networkConfig.getHost();
       IPAddress NMask = networkConfig.getNMask();
       IPAddress gateway = networkConfig.getGateway();
+      const char *ssid = networkConfig.getSsid();
+      const char *password = networkConfig.getPassword();
       WiFi.softAPConfig(IP, gateway, NMask);
       WiFi.softAP(ssid, password);
       Serial.print("SoftAP IP address: ");
       Serial.println(WiFi.softAPIP());
       wifiScanSemaphore = xSemaphoreCreateBinary();
-      wifiConnectSemaphore = xSemaphoreCreateBinary();
       xSemaphoreGive(wifiScanSemaphore);
 
       // Bắt đầu máy chủ
@@ -913,10 +856,13 @@ void setup() {
       server.on("/reset", HTTP_GET, checkReset);
       server.on("/getdatetime", HTTP_GET, getNowDateTime);
       server.on("/getlistwifi", HTTP_GET, getListWifi);
+      server.on("/delete_data", HTTP_GET, getDeleteData);
+      server.on("/checkSD", HTTP_GET, getCheckSD);
+      server.on("/opendata", HTTP_GET, getOpendata);
+      server.on("/openwifi", HTTP_GET, getOpenwifi);
+      server.on("/deletewifi", HTTP_GET, getDeletewifi);
       server.begin();
       Serial.println("HTTP server started");
-      global_afterTime02 = millis();
-      // global_check_current_average = true;
       Serial.print("setup is running core: ");
       Serial.println(xPortGetCoreID());
       xTaskCreatePinnedToCore(serverTask,   // Hàm task
@@ -927,35 +873,26 @@ void setup() {
                               NULL,         // Handle của task
                               SUBCORE       // Chỉ định core 1
       );
-      // xTaskCreatePinnedToCore(testRTOSTask, "Test task", 1028, NULL, 1,
-      // NULL,
-      //                         MAINCORE);
-      // xTaskCreatePinnedToCore(readPZEMTask, "ReadPZEMTask", 19200, NULL, 1, NULL, MAINCORE);
-
-      // logFile = SD.open("/log.txt", "a+");
-      // if (!logFile) {
-      //       Serial.println("Failed to open log file for writing");
-      //       return;
-      // }
-
-      // // Redirect Serial output to log file
-      // redirectSerialToFS();
+      init_esp_mode_and_wifi();
+      // createFile(SD, "/data.txt");
+      // readFile(SD, "/data.txt");
 }
 void loop() {
+      if (!checkSDCard()) {
+            Serial.println("NO SD CARD");
+            // ESP.restart();
+      }
       if (checkWifi() == false) {
             init_esp_mode_and_wifi();
       }
-      // readFile(SD, "/data.txt");
-      // while (current_index > 1) {
-      //       // for (int i; i <= sizeof(DataSendToGGSheetQueue); i++) {
-      //       //       Serial.println(DataSendToGGSheetQueue[1].status);
-      //       // }
-      //       // if (handleGoogleSheet(DataSendToGGSheetQueue[1].status, DataSendToGGSheetQueue[1].dateTimeStart, DataSendToGGSheetQueue[1].dateTimeEnd, DataSendToGGSheetQueue[1].duration,
-      //       //                       DataSendToGGSheetQueue[1].MachineID, DataSendToGGSheetQueue[1].averageCurrent, uuid_now) < 400) {
-      //       //       removeElement(DataSendToGGSheetQueue, current_index, 1);
-      //       // }
-      // }
-      readPZEMTask();
-      sendRealtimeRawData("realtime", getTimeString(), global_current, "T300-15", "--", SD, "/data.txt");
-      delay(2000);
+      if (millis() - global_loopTimeout >= 5000) {
+            sendRealtimeRawData(readPZEMTask(), SD, "/data.txt");
+            resendDataInSDCard();
+            check_list_uuid();
+            Serial.print("total line: ");
+            Serial.println(checkLineInFile());
+            global_loopTimeout = millis();
+      }
+
+      socket.loop();
 }

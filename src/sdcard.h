@@ -1,0 +1,2 @@
+#ifndef SDCARD
+#define SDCARD
